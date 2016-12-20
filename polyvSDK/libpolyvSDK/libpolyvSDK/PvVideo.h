@@ -8,6 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(int, PvLevel) {
+	/// 自动码率/清晰度
+	PvLevelAuto,
+	/// 标清
+	PvLevelStandard = 1,
+	/// 高清
+	PvLevelHigh,
+	/// 超清
+	PvLevelUltra
+};
+
 @interface PvVideo : NSObject
 
 @property (nonatomic, copy) NSString *title;
