@@ -9,41 +9,134 @@
 #import <Foundation/Foundation.h>
 #import "PvVideo.h"
 
-@interface PolyvSettings : NSObject
-
 extern NSString *PolyvPrivatekey;
 extern NSString *PolyvReadtoken;
 extern NSString *PolyvWritetoken;
 extern NSString *PolyvUserId;
+/// 多账号
 extern BOOL mutilAccount;
+/// 启用Airplay
 extern BOOL enableAirplay;
 
+typedef NS_OPTIONS(NSUInteger, PLVLogLevel) {
+	PLVLogLevelNone		= 0,
+	PLVLogLevelError	= 1 << 0,
+	PLVLogLevelWarn		= 1 << 1,
+	PLVLogLevelInfo		= 1 << 2,
+	PLVLogLevelDebug	= 1 << 3,
+	PLVLogLevelWithoutDebug = PLVLogLevelError | PLVLogLevelWarn | PLVLogLevelInfo,
+	PLVLogLevelAll		= 0xFFFFFFFF,
+};
+
+#define LOG_ERROR	[PolyvSettings.sharedInstance logLevel] & PLVLogLevelError
+#define LOG_WARN	[PolyvSettings.sharedInstance logLevel] & PLVLogLevelWarn
+#define LOG_INFO	[PolyvSettings.sharedInstance logLevel] & PLVLogLevelInfo
+#define LOG_DEBUG	[PolyvSettings.sharedInstance logLevel] & PLVLogLevelDebug
+
+@interface PolyvSettings : NSObject
+
+/// 下载载目录路径
+@property (nonatomic, copy, getter=getDownloadDir) NSString *downloadDir;
+/// 日志输出级别
+@property (nonatomic, assign) PLVLogLevel logLevel;
+
+/**初始化Polyv设置，需要在AppDelegate.m的didFinishLaunchingWithOptions方法里面添加*/
+- (void)initVideoSettings:(NSString *)privateKey Readtoken:(NSString *)readtoken Writetoken:(NSString *)writetoken UserId:(NSString *)userId;
+
+/**只初始化上传功能设置*/
+- (void)initUploadSettings:(NSString *)privateKey Readtoken:(NSString *)readtoken Writetoken:(NSString *)writetoken UserId:(NSString *)userId;
+
++ (id)sharedInstance;
 
 //+(void)stat:(NSString*)pid vid:(NSString*)vid flow:(long)flow pd:(int)pd sd:(int)sd cts:(int)cts duration:(int)duration;
 //+(void)reportError:(NSString*)pid vid:(NSString*)vid error:(NSString*)error param1:(NSString*)param1 param2:(NSString*)param2 param3:(NSString*)param3 param4:(NSString*)param4 param5:(NSString*)param5;
 
-+(NSDictionary*)loadVideoJson:(NSString*)vid;
-+(NSDictionary*)loadVideoJsonWithHost:(NSString*)host vid:(NSString*)vid;
-+(BOOL)isVideoAvailable:(NSDictionary*)videoInfo;
-+(NSString*)getVideoPoolId:(NSString*)vid;
-+(NSString*)getPid;
--(NSString*)getDownloadDir;
--(void)setDownloadDir:(NSString*)dir;
-+(NSMutableArray*)getVideoExams:(NSString*)vid;
-+(void)setPort:(int)port;
-+(int)getPort;
-+(NSString*)getHost;
-//+(NSURLSession*)getSessionById:(NSString*)sessionId;
+/**
+ *  同步获取视频相关元数据
+ *
+ *  @param vid 视频id
+ *
+ *  @return 视频元数据
+ */
++ (NSDictionary *)loadVideoJson:(NSString *)vid;
 
-+(PvVideo*)getVideo:(NSString*)vid;
+/**
+ *  从指定主机同步获取视频相关元数据
+ *
+ *  @param host 主机域名
+ *  @param vid  视频id
+ *
+ *  @return 视频元数据
+ */
++ (NSDictionary *)loadVideoJsonWithHost:(NSString *)host vid:(NSString *)vid;
 
--(void)reloadSettings;
+/**
+ *  该视频是否可用（账号是否超流量、视频是否完成转码）
+ *
+ *  @param videoInfo 视频元数据
+ *
+ *  @return 视频可用性
+ */
++ (BOOL)isVideoAvailable:(NSDictionary *)videoInfo;
 
-/**初始化Polyv设置，需要在AppDelegate.m的didFinishLaunchingWithOptions方法里面添加*/
--(void)initVideoSettings:(NSString*)privateKey Readtoken:(NSString*)readtoken Writetoken:(NSString*)writetoken UserId:(NSString*)userId;
+/**
+ *  生成 videoPoolId
+ *
+ *  @param vid 视频id
+ *
+ *  @return videoPoolId
+ */
++ (NSString *)getVideoPoolId:(NSString *)vid;
 
-/**只初始化上传功能设置*/
--(void)initUploadSettings:(NSString*)privateKey Readtoken:(NSString*)readtoken Writetoken:(NSString*)writetoken UserId:(NSString*)userId;
+/**
+ *  获取pid（用户id）
+ *
+ *  @return pid
+ */
++ (NSString *)getPid;
 
-+ (id)sharedInstance;
+/**
+ *  获取问答数据
+ *
+ *  @param vid 视频id
+ *
+ *  @return 问答数据
+ */
++ (NSMutableArray *)getVideoExams:(NSString *)vid;
+
+/**
+ *  设置本地服务端口
+ *
+ *  @param port 本地服务端口
+ */
++ (void)setPort:(int)port;
+
+/**
+ *  获取本地服务端口
+ *
+ *  @return 本地服务端口
+ */
++ (int)getPort;
+
+/**
+ *  获取本地主机域名
+ *
+ *  @return 本地主机域名
+ */
++ (NSString *)getHost;
+
+/**
+ *  获取 PvVideo 对象
+ *
+ *  @param vid 视频id
+ *
+ *  @return PvVideo 对象
+ */
++ (PvVideo *)getVideo:(NSString *)vid;
+
+/**
+ *  重新载入配置
+ */
+- (void)reloadSettings;
+
 @end

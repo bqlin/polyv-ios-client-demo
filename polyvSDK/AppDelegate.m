@@ -22,11 +22,13 @@
 {
     // 配置sdk加密串
     // NSString *appKey1 = @"你的app sdk加密串";
-    NSString *appKey1 = @"iPGXfu3KLEOeCW4KXzkWGl1UYgrJP7hRxUfsJGldI6DEWJpYfhaXvMA+32YIYqAOocWd051v5XUAU17LoVlgZCSEVNkx11g7CxYadcFPYPozslnQhFjkxzzjOt7lUPsWF/CO2xt5xZemQCBkkSKLGA==";         // 本地
+    NSString *appKey1 = @"v4yoqNIHwZ69WNbOTI4rzDRHbwjUYsh14V1Czv7CNhwRE3EGBEleaezLNZms14CKhxu+KB+OPH341zknQ5+7gE5UZnz4u5V0jP+SCO9kaRwthY4UyvZ3ClHgnSBEZoTCkwrYQ+sgLVIRhjo2y+uZIQ==";         // 本地
     NSData *data = [appKey1 dataUsingEncoding:NSUTF8StringEncoding];
     NSArray *config =[PolyvUtil decryptUserConfig:data];
     [[PolyvSettings sharedInstance] setDownloadDir:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/plvideo/a"]];
     [[PolyvSettings sharedInstance] initVideoSettings:[config objectAtIndex:1] Readtoken:[config objectAtIndex:2] Writetoken:[config objectAtIndex:3] UserId:[config objectAtIndex:0]];
+//	[[PolyvSettings sharedInstance] setLogLevel:PLVLogLevelDebug];
+	[PolyvSettings.sharedInstance setLogLevel:PLVLogLevelAll];
     
     // 配置sdk加密串示例(使用网络接口)
     /*

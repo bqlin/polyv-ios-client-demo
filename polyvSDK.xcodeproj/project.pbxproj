@@ -44,6 +44,7 @@
 		CBC2333B1AEA326100B0228E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC2333A1AEA326100B0228E /* libz.dylib */; };
 		CBF35D341B32B1E100E97C45 /* video-play.png in Resources */ = {isa = PBXBuildFile; fileRef = CBF35D331B32B1E100E97C45 /* video-play.png */; };
 		E5008F371CC09CEC006A42C6 /* RootViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5008F361CC09CEC006A42C6 /* RootViewViewController.m */; };
+		E50548DC1E0B677600719FFD /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = E50548DB1E0B677600719FFD /* Foundation+Log.m */; };
 		E50D16C51CC71522004585AB /* PLVSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E50D16C41CC71522004585AB /* PLVSlider.m */; };
 		E50D17571CC7B5B2004585AB /* PLVIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = E50D17561CC7B5B2004585AB /* PLVIndicator.m */; };
 		E57D4B5A1DF1548000E21BE4 /* libpolyvSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E57D4B591DF1548000E21BE4 /* libpolyvSDK.a */; };
@@ -167,6 +168,7 @@
 		CBF35D331B32B1E100E97C45 /* video-play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video-play.png"; sourceTree = "<group>"; };
 		E5008F351CC09CEC006A42C6 /* RootViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewViewController.h; sourceTree = "<group>"; };
 		E5008F361CC09CEC006A42C6 /* RootViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewViewController.m; sourceTree = "<group>"; };
+		E50548DB1E0B677600719FFD /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Foundation+Log.m"; path = "../../../../../../NUT/libs/BqCategorys/Foundation+Log.m"; sourceTree = "<group>"; };
 		E50D16C31CC71522004585AB /* PLVSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVSlider.h; sourceTree = "<group>"; };
 		E50D16C41CC71522004585AB /* PLVSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLVSlider.m; sourceTree = "<group>"; };
 		E50D17551CC7B5B2004585AB /* PLVIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVIndicator.h; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 		CBA37121196E6549008E95ED /* polyvSDK */ = {
 			isa = PBXGroup;
 			children = (
+				E50548DB1E0B677600719FFD /* Foundation+Log.m */,
 				CBA5D70A1C0BD47E00781EA5 /* libpolyvSDK */,
 				CB8E99881B80C4EA00CDD71A /* VideoListTableViewController.h */,
 				CB8E99891B80C4EA00CDD71A /* VideoListTableViewController.m */,
@@ -580,6 +583,7 @@
 				CB30D6CC1C745306001092BE /* SubTitleLabel.m in Sources */,
 				CBBFEAAD199C9BC100D15255 /* UploadDemoViewController.m in Sources */,
 				CB0F44E51C59E13700A6B13C /* DetailViewController2.m in Sources */,
+				E50548DC1E0B677600719FFD /* Foundation+Log.m in Sources */,
 				CBA37128196E6549008E95ED /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

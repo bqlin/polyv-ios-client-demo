@@ -10,23 +10,23 @@
 #import "PLVMoviePlayerController.h"
 
 enum PvLogoLocation {
-    PvLogoLocationTopLeft = 0,
-    PvLogoLocationTopRight = 1,
-    PvLogoLocationBottomLeft = 2,
-    PvLogoLocationBottomRight = 3
+	PvLogoLocationTopLeft = 0,
+	PvLogoLocationTopRight = 1,
+	PvLogoLocationBottomLeft = 2,
+	PvLogoLocationBottomRight = 3
 };
 
 /*enum PvGestureType {
-    PvUnknown = 0,
-    PvBrightness,
-    PvVoice,
-    PvProgress
-};*/
+ PvUnknown = 0,
+ PvBrightness,
+ PvVoice,
+ PvProgress
+ };*/
 
 enum PvPlayMode {
-    PvVideoMode = 0,
-    PvTeaserMode = 1,
-    PvAdMode = 2
+	PvVideoMode = 0,
+	PvTeaserMode = 1,
+	PvAdMode = 2
 };
 
 
@@ -64,29 +64,27 @@ enum PvPlayMode {
 - (instancetype)initWithFrame:(CGRect)frame;
 - (void)showInWindow;
 - (void)dismiss;
-- (void)setLocalMp4:(NSString*)vid level:(int)level __deprecated;
 - (void)enableDanmu:(BOOL)enable;
 - (void)enableTeaser:(BOOL)enable;
 - (void)keepNavigationBar:(BOOL)keep;
-- (void)setHeadTitle:(NSString*)headtitle;
-- (void)setNavigationController:(UINavigationController*)navigationController;
-- (void)setParentViewController:(UIViewController*)viewController;
+- (void)setHeadTitle:(NSString *)headtitle;
+- (void)setNavigationController:(UINavigationController *)navigationController;
+- (void)setParentViewController:(UIViewController *)viewController;
 - (void)stop;
-- (void)setVid:(NSString*)vid;
-- (void)setVid:(NSString*)vid level:(int)level;
+//- (void)setVid:(NSString *)vid level:(int)level;
 
 
 
 //设置播放器logo
--(void)setLogo:(UIImage*)image location:(int)location size:(CGSize)size alpha:(CGFloat)alpha;
+- (void)setLogo:(UIImage *)image location:(int)location size:(CGSize)size alpha:(CGFloat)alpha;
 - (void)configObserver;
 - (void)cancelObserver;
 - (void)cancel;
 
 //额外参数，用来跟踪出错用户
-- (void)setParam1:(NSString*)param1;
+- (void)setParam1:(NSString *)param1;
 // 发送跑马灯
--(void)rollInfo:(NSString *)info font:(UIFont *)font color:(UIColor *)color withDuration:(NSTimeInterval)duration;
+- (void)rollInfo:(NSString *)info font:(UIFont *)font color:(UIColor *)color withDuration:(NSTimeInterval)duration;
 
 // 自动续播,建议根据实际项目需求实现记录的存储
 - (void)setAutoContinue:(BOOL)autoContinue;

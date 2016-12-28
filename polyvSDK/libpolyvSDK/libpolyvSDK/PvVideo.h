@@ -21,29 +21,40 @@ typedef NS_ENUM(int, PvLevel) {
 
 @interface PvVideo : NSObject
 
+/// 视频 id
+@property (nonatomic, copy) NSString *vid;
+/// 码率/清晰度
+@property (nonatomic, assign) PvLevel level;
+/// 可用码率/清晰度数量
+@property (nonatomic, assign) int df_num;
+/// 视频标题
 @property (nonatomic, copy) NSString *title;
+/// 视频描述
 @property (nonatomic, copy) NSString *desc;
-@property (nonatomic,copy) NSString *vid;
-@property (nonatomic,copy) NSString *piclink;
-@property (nonatomic,copy) NSString *duration;
-@property NSArray* filesize;
-@property int level;
-@property int df_num;
-@property int seed;
-@property BOOL isInteractiveVideo;
-@property int status;
-@property int fullmp4;
-@property NSArray *hlslinks;
-@property NSArray *mp4links;
-@property NSDictionary *videoSrts;
-@property BOOL outflow;
-@property BOOL timeoutflow;
-@property BOOL teaserShow;
+/// 视频首图
+@property (nonatomic, copy) NSString *piclink;
+/// 视频时长
+@property (nonatomic, assign) double duration;
+/// 各码率视频大小
+@property (nonatomic, strong) NSArray<NSNumber *> *filesize;
+/// 是否为可交互视频
+@property (nonatomic, assign) BOOL isInteractiveVideo;
+/// 是否包含片头
+@property (nonatomic, assign) BOOL teaserShow;
+/// 片头URL
+@property (nonatomic, copy) NSString *teaser_url;
+/// 片头播放时间
+@property (nonatomic, assign) long teaser_time;
+/// 视频字幕
+@property (nonatomic, strong) NSDictionary<NSString *, NSString *> *videoSrts;
 
-@property NSString*teaser_url;
-
--(BOOL)available;
-
-
+- (instancetype)initWithVid:(NSString *)vid dict:(NSDictionary *)dict;
++ (instancetype)videoWithVid:(NSString *)vid dict:(NSDictionary *)dict;
+/// 视频是否可用
+- (BOOL)available;
+/// 视频是否为 MP4
+- (BOOL)isMP4;
 
 @end
+
+NSString *NSStringFromPvLevel(PvLevel level);
