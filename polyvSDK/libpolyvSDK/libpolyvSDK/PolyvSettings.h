@@ -33,11 +33,17 @@ typedef NS_OPTIONS(NSUInteger, PLVLogLevel) {
 #define LOG_INFO	[PolyvSettings.sharedInstance logLevel] & PLVLogLevelInfo
 #define LOG_DEBUG	[PolyvSettings.sharedInstance logLevel] & PLVLogLevelDebug
 
+#define PLVErrorLog(fmt, ...)	if (LOG_ERROR) NSLog((@"[PLV_SDK_ERROR] " fmt), ##__VA_ARGS__);
+#define PLVWarnLog(fmt, ...)	if (LOG_WARN) NSLog((@"[PLV_SDK_WARN] " fmt), ##__VA_ARGS__);
+#define PLVInfoLog(fmt, ...)	if (LOG_INFO) NSLog((@"[PLV_SDK_INFO] " fmt), ##__VA_ARGS__);
+#define PLVDebugLog(fmt, ...)	if (LOG_DEBUG) NSLog((@"[PLV_SDK_DEBUG] " fmt), ##__VA_ARGS__);
+
+
 @interface PolyvSettings : NSObject
 
 /// 下载载目录路径
 @property (nonatomic, copy, getter=getDownloadDir) NSString *downloadDir;
-/// 日志输出级别
+/// 日志输出级别，默认为 PLVLogLevelWithoutDebug
 @property (nonatomic, assign) PLVLogLevel logLevel;
 
 /**初始化Polyv设置，需要在AppDelegate.m的didFinishLaunchingWithOptions方法里面添加*/

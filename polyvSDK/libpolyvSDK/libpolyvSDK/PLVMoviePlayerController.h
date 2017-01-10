@@ -109,3 +109,12 @@
 - (void)cancel;
 
 @end
+
+/// MPMoviePlaybackState 字符串
+NSString *NSStringFromMPMoviePlaybackState(MPMoviePlaybackState state);
+
+/// MPMovieLoadState 字符串
+NSString *NSStringFromMPMovieLoadState(MPMovieLoadState state);
+
+/// MPMovieFinishReason 字符串
+NSString *NSStringFromMPMovieFinishReason(MPMovieFinishReason reason);

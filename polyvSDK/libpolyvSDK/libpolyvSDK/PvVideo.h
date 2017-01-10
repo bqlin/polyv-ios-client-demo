@@ -18,13 +18,12 @@ typedef NS_ENUM(int, PvLevel) {
 	/// 超清
 	PvLevelUltra
 };
+NSString *NSStringFromPvLevel(PvLevel level);
 
 @interface PvVideo : NSObject
 
 /// 视频 id
 @property (nonatomic, copy) NSString *vid;
-/// 码率/清晰度
-@property (nonatomic, assign) PvLevel level;
 /// 可用码率/清晰度数量
 @property (nonatomic, assign) int df_num;
 /// 视频标题
@@ -54,7 +53,4 @@ typedef NS_ENUM(int, PvLevel) {
 - (BOOL)available;
 /// 视频是否为 MP4
 - (BOOL)isMP4;
-
 @end
-
-NSString *NSStringFromPvLevel(PvLevel level);
