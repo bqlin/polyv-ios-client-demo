@@ -102,57 +102,38 @@ typedef NS_ENUM(NSInteger, panHandler){
 @synthesize watchVideoTimeDuration;
 @synthesize watchStartTime = _watchStartTime;
 
+#pragma mark - 存取器
 - (void)setEnableExam:(BOOL)enableExam{
 	_enableExam = enableExam;
-	//	NSLog(@"%s - vid = %@ - 是否可交互 = %d", __FUNCTION__, self.getVid, _pvVideo.isInteractiveVideo);
+	//NSLog(@"%s - vid = %@ - 是否可交互 = %d", __FUNCTION__, self.getVid, _pvVideo.isInteractiveVideo);
 	if (!self.getVid || !self.video.isInteractiveVideo) return;
 	if (_enableExam) { // 开启问答
-		//		NSLog(@"开启问答");
+		//NSLog(@"开启问答");
 		_videoExams = [PolyvSettings getVideoExams:self.getVid];
 		//清空答题纪录，下次观看也会重新弹出问题
 		[self.videoControl.pvExamView resetExamHistory];
 	}else{ // 关闭问答
-		//		NSLog(@"关闭问答");
+		//NSLog(@"关闭问答");
 	}
 }
 
-- (void)play{
-	[self.videoControl.indicatorView startAnimating];
-	[super play];
+
+- (void)setEnableSnapshot:(BOOL)enableSnapshot{
+	_enableSnapshot = enableSnapshot;
+	self.videoControl.enableSnapshot = enableSnapshot;
 }
 
-- (void)stop{
-	[self.videoControl.indicatorView stopAnimating];
-	[super stop];
-}
-- (void)cancel{
+- (void)setEnableDanmuDisplay:(BOOL)enableDanmuDisplay {
+	_enableDanmuDisplay = enableDanmuDisplay;
 	
-	[super cancel];
-	[self cancelObserver];
-	
-	[self stopBufferTimer];
-	[self stopDurationTimer];
-	[self stopCountWatchTime];
-	[_stallTimer invalidate];
-}
-
-
-- (void)keepNavigationBar:(BOOL)keep{
-	self.keepNavigationBar = keep;
-	if (keep) {
-		CGRect frame = self.view.frame;
-		frame = CGRectMake(frame.origin.x, frame.origin.y - 20, frame.size.width, frame.size.height);
-		self.view.frame = frame;
-		self.originFrame = frame;
-		[_navigationController setNavigationBarHidden:NO animated:NO];
-		self.videoControl.backButton.hidden = YES;
+	if (!enableDanmuDisplay) {
+		[self enableDanmu:NO];
 	}
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-	self = [super init];
-	if (self) {
+#pragma mark - dealloc & init
+- (instancetype)initWithFrame:(CGRect)frame{
+	if (self = [super init]) {
 		frame = CGRectMake(frame.origin.x, frame.origin.y + 20, frame.size.width, frame.size.height);
 		[self setFrame:frame];
 		
@@ -165,7 +146,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 		self.videoControl.closeButton.hidden = YES;
 		self.originFrame = frame;
 		[self configControlAction];
-		self.autoplay = YES;
 		//[self configObserver];
 		self.enableDanmuDisplay = YES;
 		self.enableRateDisplay  = YES;
@@ -173,64 +153,8 @@ typedef NS_ENUM(NSInteger, panHandler){
 	return self;
 }
 
-#pragma mark - Override Method
-
-
-- (void)setContentURL:(NSURL *)contentURL
-{
-	[self stop];
-	[super setContentURL:contentURL];
-	if(self.autoplay){
-		[self play];
-		
-	}
-	self.autoplay = YES;
-}
-
-- (void)setNavigationController:(UINavigationController *)navigationController{
-	_navigationController = navigationController;
-	if (!self.keepNavigationBar) {
-		[_navigationController setNavigationBarHidden:YES animated:NO];
-	}
-}
-- (void)setParentViewController:(UIViewController *)viewController{
-	_parentViewController = viewController;
-}
-
-
-
-- (void)setHeadTitle:(NSString *)headtitle{
-	[self.videoControl setHeadTitle:headtitle];
-}
-
-- (void)setParam1:(NSString *)param1{
-	self.param1 = param1;
-}
-
-- (void)setEnableDanmuDisplay:(BOOL)enableDanmuDisplay {
-	_enableDanmuDisplay = enableDanmuDisplay;
-	
-	if (!enableDanmuDisplay) {
-		[self enableDanmu:NO];
-	}
-}
-
-- (void)setAutoContinue:(BOOL)autoContinue {
-	
-	if (autoContinue) {
-		NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"dict"];
-		if (dict) {
-			NSNumber *startTime = [dict objectForKey:self.vid];
-			if (startTime && startTime.integerValue > 0) {
-				[self setWatchStartTime:startTime.doubleValue];
-			}
-		}
-	}
-}
-
-
-#pragma mark - Public Method
-
+#pragma mark - 外部方法
+/// 窗口模式
 - (void)showInWindow
 {
 	UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
@@ -249,14 +173,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 	self.videoControl.backButton.hidden = YES;
 }
 
-- (void)setLogo:(UIImage *)image location:(int)location size:(CGSize)size alpha:(CGFloat)alpha{
-	[self.videoControl setLogoImage:image];
-	[self.videoControl setLogoPosition:location];
-	[self.videoControl setLogoSize:size];
-	[self.videoControl setLogoAlpha:alpha];
-	[self.videoControl logoImageView];
-}
-
+/// 启用弹幕
 - (void)enableDanmu:(BOOL)enable{
 	self.danmuEnabled  = enable;
 	CGRect dmFrame;
@@ -269,15 +186,96 @@ typedef NS_ENUM(NSInteger, panHandler){
 	}
 }
 
+/// 启用片头
 - (void)enableTeaser:(BOOL)enable{
 	self.teaserEnabled = enable;
 }
 
-- (void)setEnableSnapshot:(BOOL)enableSnapshot{
-	_enableSnapshot = enableSnapshot;
-	self.videoControl.enableSnapshot = enableSnapshot;
+/// 保留导航栏
+- (void)keepNavigationBar:(BOOL)keep{
+	self.keepNavigationBar = keep;
+	if (keep) {
+		CGRect frame = self.view.frame;
+		frame = CGRectMake(frame.origin.x, frame.origin.y - 20, frame.size.width, frame.size.height);
+		self.view.frame = frame;
+		self.originFrame = frame;
+		[_navigationController setNavigationBarHidden:NO animated:NO];
+		self.videoControl.backButton.hidden = YES;
+	}
 }
 
+/// 设置播放器标题
+- (void)setHeadTitle:(NSString *)headtitle{
+	[self.videoControl setHeadTitle:headtitle];
+}
+
+- (void)setNavigationController:(UINavigationController *)navigationController{
+	_navigationController = navigationController;
+	if (!self.keepNavigationBar) {
+		[_navigationController setNavigationBarHidden:YES animated:NO];
+	}
+}
+- (void)setParentViewController:(UIViewController *)viewController{
+	_parentViewController = viewController;
+}
+
+/// 设置播放器logo
+- (void)setLogo:(UIImage *)image location:(int)location size:(CGSize)size alpha:(CGFloat)alpha{
+	[self.videoControl setLogoImage:image];
+	[self.videoControl setLogoPosition:location];
+	[self.videoControl setLogoSize:size];
+	[self.videoControl setLogoAlpha:alpha];
+	[self.videoControl logoImageView];
+}
+
+/// 注册监听
+- (void)configObserver
+{
+	super.delegate = self;
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	
+	//	[notificationCenter addObserver:self selector:@selector(vidAvailable) name:PLVSkinVideoViewControllerVidAvailable object:nil];
+	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerPlaybackStateDidChangeNotification) name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];      // 播放状态改变，可配合playbakcState属性获取具体状态
+	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerLoadStateDidChangeNotification) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];          // 媒体网络加载状态改变
+	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerReadyForDisplayDidChangeNotification) name:MPMoviePlayerReadyForDisplayDidChangeNotification object:nil];    // 视频显示状态改变
+	[notificationCenter addObserver:self selector:@selector(onMPMovieDurationAvailableNotification) name:MPMovieDurationAvailableNotification object:nil];                 // 确定了媒体播放时长后
+	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerPlaybackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];           // 媒体播放完成或用户手动退出, 具体原因通过MPMoviePlayerPlaybackDidFinishReasonUserInfoKey key值确定
+	//    [notificationCenter addObserver:self selector:@selector(videoInfoLoaded) name:@"NotificationVideoInfoLoaded" object:nil];
+	[notificationCenter addObserver:self selector:@selector(onMediaPlaybackIsPreparedToPlayDidChangeNotification) name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification object:nil];    // 准好播放
+	
+	//	[notificationCenter addObserverForName:MPMoviePlayerNowPlayingMovieDidChangeNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *_Nonnull note) {
+	//		// 显示码率
+	//		[self setBitRateButtonDisplay:self.currentLevel];
+	//		// 本地视频不允许切换码率
+	//		self.videoControl.bitRateButton.enabled = [self isExistedTheLocalVideo:self.vid] == 0;
+	//	}];
+	
+	
+	[self addOrientationObserver];
+	UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panHandler:)];
+	pan.delegate                = self;
+	[self.view addGestureRecognizer:pan];
+}
+
+/// 移除监听
+- (void)cancelObserver
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[self removeOrientationObserver];
+}
+
+/// 销毁
+- (void)cancel{
+	[super cancel];
+	[self cancelObserver];
+	
+	[self stopBufferTimer];
+	[self stopDurationTimer];
+	[self stopCountWatchTime];
+	[_stallTimer invalidate];
+}
+
+/// 销毁
 - (void)dismiss
 {
 	[self stopDurationTimer];
@@ -296,41 +294,95 @@ typedef NS_ENUM(NSInteger, panHandler){
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
-- (void)configObserver
+//额外参数，用来跟踪出错用户
+- (void)setParam1:(NSString *)param1{
+	self.param1 = param1;
+}
+
+/// 发送跑马灯
+- (void)rollInfo:(NSString *)info font:(UIFont *)font color:(UIColor *)color withDuration:(NSTimeInterval)duration{
+	//	NSLog(@"%s", __FUNCTION__);
+	CGFloat width = self.frame.size.width;
+	__block UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(width, 0, 0, 0)];
+	if (!font) {
+		font = [UIFont systemFontOfSize:13];
+	}
+	if (color) {
+		infoLabel.textColor = color;
+	}
+	infoLabel.font = font;
+	infoLabel.text = info;
+	[self.view addSubview:infoLabel];
+	[infoLabel sizeToFit];
+	[UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+		infoLabel.transform = CGAffineTransformMakeTranslation(-width-infoLabel.bounds.size.width, 0);
+	}completion:^(BOOL finished) {
+		[infoLabel removeFromSuperview];
+		infoLabel = nil;
+	}];
+}
+
+// 自动续播，建议根据实际项目需求实现记录的存储
+- (void)setAutoContinue:(BOOL)autoContinue {
+	
+	if (autoContinue) {
+		NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"dict"];
+		if (dict) {
+			NSNumber *startTime = [dict objectForKey:self.vid];
+			if (startTime && startTime.integerValue > 0) {
+				[self setWatchStartTime:startTime.doubleValue];
+			}
+		}
+	}
+}
+
+- (void)monitorVideoPlayback
 {
-	super.delegate = self;
-	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	if (_isSeeking) true;
+	if (_isSwitching) {     // 正在切换码率，return出去
+		return;
+	}
 	
-	//	[notificationCenter addObserver:self selector:@selector(vidAvailable) name:PLVSkinVideoViewControllerVidAvailable object:nil];
-	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerPlaybackStateDidChangeNotification) name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];      // 播放状态改变，可配合playbakcState属性获取具体状态
-	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerLoadStateDidChangeNotification) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];          // 媒体网络加载状态改变
-	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerReadyForDisplayDidChangeNotification) name:MPMoviePlayerReadyForDisplayDidChangeNotification object:nil];    // 视频显示状态改变
-	[notificationCenter addObserver:self selector:@selector(onMPMovieDurationAvailableNotification) name:MPMovieDurationAvailableNotification object:nil];                 // 确定了媒体播放时长后
-	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerPlaybackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];           // 媒体播放完成或用户手动退出, 具体原因通过MPMoviePlayerPlaybackDidFinishReasonUserInfoKey key值确定
-	//    [notificationCenter addObserver:self selector:@selector(videoInfoLoaded) name:@"NotificationVideoInfoLoaded" object:nil];
-	[notificationCenter addObserver:self selector:@selector(onMediaPlaybackIsPreparedToPlayDidChangeNotification) name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification object:nil];    // 准好播放
-	
-//	[notificationCenter addObserverForName:MPMoviePlayerNowPlayingMovieDidChangeNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *_Nonnull note) {
-//		// 显示码率
-//		[self setBitRateButtonDisplay:self.currentLevel];
-//		// 本地视频不允许切换码率
-//		self.videoControl.bitRateButton.enabled = [self isExistedTheLocalVideo:self.vid] == 0;
-//	}];
+	double currentTime = floor(self.currentPlaybackTime);
+	double totalTime = floor(self.duration);
+	[self setTimeLabelValues:currentTime totalTime:totalTime];
+	self.videoControl.slider.progressValue = ceil(currentTime);
 	
 	
-	[self addOrientationObserver];
-	UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panHandler:)];
-	pan.delegate                = self;
-	[self.view addGestureRecognizer:pan];
+	[self searchSubtitles];
+	if (self.danmuEnabled) {
+		[_danmuManager rollDanmu:currentTime];
+	}
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	
+	if(self.enableExam){
+		PvExam *examShouldShow;
+		for(PvExam *exam in _videoExams){
+			if (exam.seconds < currentTime && ![[userDefaults stringForKey:[NSString stringWithFormat:@"exam_%@", exam.examId]] isEqualToString:@"Y"]) {
+				//				NSLog(@"%sYYY", __FUNCTION__);
+				examShouldShow = exam;
+				break;
+			}
+		}
+		if (examShouldShow) {
+			[self pause];
+			[self showExam:examShouldShow];
+		}
+	}
+}
+#pragma mark - 内部方法
+
+- (void)play{
+	[self.videoControl.indicatorView startAnimating];
+	[super play];
+}
+
+- (void)stop{
+	[self.videoControl.indicatorView stopAnimating];
+	[super stop];
 }
 
 
-
-- (void)cancelObserver
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[self removeOrientationObserver];
-}
 
 - (void)configControlAction
 {
@@ -602,10 +654,8 @@ typedef NS_ENUM(NSInteger, panHandler){
 }
 
 // 播放状态改变
-- (void)onMPMoviePlayerPlaybackStateDidChangeNotification
-{
+- (void)onMPMoviePlayerPlaybackStateDidChangeNotification{
 	//NSLog(@"%s,%f", __FUNCTION__, self.currentPlaybackTime);
-	
 	[self syncPlayButtonState];
 	if (self.playbackState == MPMoviePlaybackStatePlaying) {
 		[self.videoControl.indicatorView stopAnimating];
@@ -618,7 +668,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 	} else{
 		[self stopDurationTimer];
 		if (self.playbackState == MPMoviePlaybackStateStopped) {
-			//			NSLog(@"%s - MPMoviePlaybackStateStopped", __FUNCTION__);
+			//NSLog(@"%s - MPMoviePlaybackStateStopped", __FUNCTION__);
 			[self.videoControl animateShow];
 		}
 		[self stopCountWatchTime];
@@ -661,8 +711,8 @@ typedef NS_ENUM(NSInteger, panHandler){
 	//    NSLog(@"%s - %@", __FUNCTION__, notification);
 	
 	[self.videoControl.indicatorView stopAnimating];
-	if (_pvPlayMode == PvTeaserMode) {
-		_pvPlayMode = PvVideoMode;
+	if (NO) {
+//		_pvPlayMode = PvVideoMode;
 		[super setVid:self.vid];
 		[self.videoControl disableControl:NO];
 		self.videoControl.slider.progressValue = 0;
@@ -728,7 +778,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 - (void)onMediaPlaybackIsPreparedToPlayDidChangeNotification
 {
 	//     NSLog(@"%s,%f", __FUNCTION__, self.currentPlaybackTime);
-	if (_watchStartTime > 0 && _pvPlayMode == PvVideoMode && self.playbackState != MPMoviePlaybackStateStopped) {
+	if (_watchStartTime > 0 && self.playbackState != MPMoviePlaybackStateStopped) {
 		
 		[self setCurrentPlaybackTime:_watchStartTime];
 		_watchStartTime = -1;
@@ -786,8 +836,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 	self.videoControl.pauseButton.hidden = NO;
 }
 
-- (void)pauseButtonClick
-{
+- (void)pauseButtonClick{
 	if (self.pauseButtonClickBlock) {
 		self.pauseButtonClickBlock();
 	}
@@ -874,6 +923,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 - (void)progressSliderTouchBegan:(UISlider *)slider {
 	[self pause];
 	[self.videoControl cancelAutoFadeOutControlBar];
+	
 	//	[_stallTimer]
 	//	self.videoControl.timeLabel
 }
@@ -902,6 +952,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 	if (!level) level = [self isExistedTheLocalVideo:self.vid];
 	NSString *sign = [NSString stringWithFormat:@"%@%d%dpolyvsnapshot", self.vid, level, currentTime];
 	NSString *urlStr = [NSString stringWithFormat:@"http://go.polyv.net/snapshot/videoimage.php?vid=%@&level=%d&second=%d&sign=%@", self.vid, level, currentTime, [PolyvUtil md5HexDigest:sign]];
+	NSLog(@"url = %@", urlStr);
 	NSURL *url = [NSURL URLWithString:urlStr];
 	
 	[[[NSURLSession sharedSession] downloadTaskWithURL:url completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -939,40 +990,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 	self.videoControl.pvExamView.hidden = NO;
 }
 
-- (void)monitorVideoPlayback
-{
-	if (_isSeeking) true;
-	if (_isSwitching) {     // 正在切换码率，return出去
-		return;
-	}
-	
-	double currentTime = floor(self.currentPlaybackTime);
-	double totalTime = floor(self.duration);
-	[self setTimeLabelValues:currentTime totalTime:totalTime];
-	self.videoControl.slider.progressValue = ceil(currentTime);
-	
-	
-	[self searchSubtitles];
-	if (self.danmuEnabled) {
-		[_danmuManager rollDanmu:currentTime];
-	}
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	
-	if(self.enableExam){
-		PvExam *examShouldShow;
-		for(PvExam *exam in _videoExams){
-			if (exam.seconds < currentTime && ![[userDefaults stringForKey:[NSString stringWithFormat:@"exam_%@", exam.examId]] isEqualToString:@"Y"]) {
-				//				NSLog(@"%sYYY", __FUNCTION__);
-				examShouldShow = exam;
-				break;
-			}
-		}
-		if (examShouldShow) {
-			[self pause];
-			[self showExam:examShouldShow];
-		}
-	}
-}
+
 
 - (void)trackBuffer{
 	CGFloat buffer = (CGFloat)self.playableDuration/self.duration;
@@ -1089,28 +1107,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 	[self.danmuManager resume:[super currentPlaybackTime]];
 }
 
-- (void)rollInfo:(NSString *)info font:(UIFont *)font color:(UIColor *)color withDuration:(NSTimeInterval)duration{
-	//	NSLog(@"%s", __FUNCTION__);
-	CGFloat width = self.frame.size.width;
-	__block UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(width, 0, 0, 0)];
-	if (!font) {
-		font = [UIFont systemFontOfSize:13];
-	}
-	if (color) {
-		infoLabel.textColor = color;
-	}
-	infoLabel.font = font;
-	infoLabel.text = info;
-	[self.view addSubview:infoLabel];
-	[infoLabel sizeToFit];
-	[UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-		infoLabel.transform = CGAffineTransformMakeTranslation(-width-infoLabel.bounds.size.width, 0);
-	}completion:^(BOOL finished) {
-		[infoLabel removeFromSuperview];
-		infoLabel = nil;
-	}
-	 ];
-}
+
 
 - (void)dealloc{
 	

@@ -29,12 +29,10 @@
 }
 
 -(void)movieLoadStateDidChange:(NSNotification *)notification{
-    
      //NSLog(@"LoadStateDidChange");
 }
 
 - (void)moviePlaybackIsPreparedToPlayDidChange:(NSNotification *)notification {
-    
     /* 演示代码示例
     if (_isShouldPause) {
         [self.videoPlayer pause];
@@ -131,7 +129,7 @@
     
     [self.videoPlayer enableDanmu:YES];
     
-    [self.videoPlayer setAutoplay:YES];                 // 设置是否自动播放,默认为YES
+	self.videoPlayer.shouldAutoplay = NO; // 设置是否自动播放，默认为YES
 	
 	self.videoPlayer.enableSnapshot = YES;
     
