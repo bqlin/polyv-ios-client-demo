@@ -18,6 +18,11 @@
 /// 视频元数据已加载
 - (void)moviePlayer:(PLVMoviePlayerController *)player didLoadVideoInfo:(PvVideo *)video;
 
+/// 片头开始播放
+- (void)moviePlayerTeaserDidBegin:(PLVMoviePlayerController *)player;
+/// 片头播放结束。注意：开启片头后，应在该重新注册播放器通知的监听
+- (void)moviePlayerTeaserDidEnd:(PLVMoviePlayerController *)player;
+
 @end
 
 @interface PLVMoviePlayerController: MPMoviePlayerController
@@ -33,10 +38,12 @@
 @property (nonatomic, strong) PvVideo *video;
 /// 单元 id
 @property (nonatomic, copy, readonly, getter=getPid) NSString *pid;
-/// 观看时间
+/// 用户播放时间
 @property (nonatomic, assign) int watchTimeDuration;
-///
+/// 用户停留时间
 @property (nonatomic, assign) int stayTimeDuration;
+/// 片头开关
+@property (nonatomic, assign) BOOL teaserEnable;
 
 /**
  *  初始化播放器
