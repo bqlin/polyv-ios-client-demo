@@ -32,8 +32,8 @@ enum PvLogoLocation {
 @property (nonatomic, copy) void(^watchCompletedBlock)(void);
 
 @property (nonatomic, assign) CGRect frame;
-@property int watchVideoTimeDuration;
-@property NSTimeInterval watchStartTime;
+
+@property (nonatomic, assign) NSTimeInterval watchStartTime;
 @property (nonatomic, assign) BOOL autoContinue;         // 继续上一次的视频。如果设置为YES,视频将从上次播放停止的位置继续播放
 @property (nonatomic, assign) BOOL isWatchCompleted;    // 播放是否完成
 

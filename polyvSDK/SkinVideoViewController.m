@@ -49,7 +49,6 @@ NSString *const PLVSkinVideoViewControllerVidAvailable = @"PLVSkinVideoViewContr
 
 @property (nonatomic, assign) BOOL volumeEnable;
 
-//@property (nonatomic, assign) PvGestureType gestureType;
 
 // 枚举值，包含水平移动方向和垂直移动方向
 typedef NS_ENUM(NSInteger, panHandler){
@@ -95,11 +94,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 	
 	NSMutableArray *_videoExams;
 	NSMutableDictionary *_parsedSrt;
-	
 }
-
-@synthesize watchVideoTimeDuration;
-@synthesize watchStartTime = _watchStartTime;
 
 #pragma mark - 存取器
 - (SkinVideoViewControllerView *)videoControl{
@@ -289,7 +284,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 	
 	[self stopBufferTimer];
 	[self stopDurationTimer];
-	[self stopCountWatchTime];
 	[_stallTimer invalidate];
 }
 
@@ -342,7 +336,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 
 // 自动续播，建议根据实际项目需求实现记录的存储
 - (void)setAutoContinue:(BOOL)autoContinue {
-	
 	if (autoContinue) {
 		NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"dict"];
 		if (dict) {
@@ -425,8 +418,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 #pragma mark - PLVMoviePlayerDelegate
 - (void)moviePlayer:(PLVMoviePlayerController *)player didLoadVideoInfo:(PvVideo *)video{
 	// 状态初始化
-	[self stopCountWatchTime];
-	self.watchVideoTimeDuration = 0;
 	
 	// 码率列表
 	NSMutableArray *buttons = [self.videoControl createBitRateButton:[super getLevel]];
@@ -582,23 +573,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 	}
 }
 
-- (void)startCountWatchTime{
-	[_watchTimer invalidate];
-	_watchTimer = [NSTimer scheduledTimerWithTimeInterval:1
-												   target:self
-												 selector:@selector(watchTimer_tick:)
-												 userInfo:nil
-												  repeats:YES];
-	[[NSRunLoop currentRunLoop] addTimer:_watchTimer forMode:NSRunLoopCommonModes];
-}
 
-- (void)stopCountWatchTime{
-	[_watchTimer invalidate];
-}
-
-- (void)watchTimer_tick:(NSObject *)sender {
-	self.watchVideoTimeDuration++;
-}
 
 
 #pragma mark 播放器通知响应
@@ -617,15 +592,12 @@ typedef NS_ENUM(NSInteger, panHandler){
 		[self startDurationTimer];
 		[self starBufferTimer];
 		[self.videoControl autoFadeOutControlBar];
-		
-		[self startCountWatchTime];
 	} else{
 		[self stopDurationTimer];
 		if (self.playbackState == MPMoviePlaybackStateStopped) {
 			//NSLog(@"%s - MPMoviePlaybackStateStopped", __FUNCTION__);
 			[self.videoControl animateShow];
 		}
-		[self stopCountWatchTime];
 	}
 }
 
@@ -636,12 +608,10 @@ typedef NS_ENUM(NSInteger, panHandler){
 	[self syncPlayButtonState];
 	
 	if (self.loadState & MPMovieLoadStateStalled) {
-		[self stopCountWatchTime];
 		[self.videoControl.indicatorView startAnimating];
 	}
 	if (self.loadState & MPMovieLoadStatePlaythroughOK) {
 		[self.videoControl.indicatorView stopAnimating];
-		[self startCountWatchTime];
 		_isPrepared = YES;
 	}else{
 		//		NSLog(@"state = %@", @(self.loadState));
@@ -691,7 +661,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 		[PvReportManager reportError:[super getPid] uid:PolyvUserId vid:self.vid error:errorstring param1:self.param1 param2:@"" param3:@"" param4:@"" param5:@"polyv-ios-sdk"];
 	}
 	//NSLog(@"done");
-	[self stopCountWatchTime];
 }
 
 - (void)onMPMovieDurationAvailableNotification{
