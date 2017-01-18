@@ -38,12 +38,6 @@ NSString *NSStringFromPvLevel(PvLevel level);
 @property (nonatomic, strong) NSArray<NSNumber *> *filesize;
 /// 是否为可交互视频
 @property (nonatomic, assign) BOOL isInteractiveVideo;
-/// 是否包含片头
-@property (nonatomic, assign) BOOL teaserShow;
-/// 片头URL
-@property (nonatomic, copy) NSString *teaser_url;
-/// 片头播放时间
-@property (nonatomic, assign) long teaser_time;
 /// 视频字幕
 @property (nonatomic, strong) NSDictionary<NSString *, NSString *> *videoSrts;
 

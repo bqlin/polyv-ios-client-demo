@@ -120,7 +120,7 @@
     [self.videoPlayer keepNavigationBar:YES];
     [self.videoPlayer setHeadTitle:self.video.title];
     // 开启片头播放
-    [self.videoPlayer enableTeaser:YES];
+	self.videoPlayer.teaserEnable = YES;
     [self.videoPlayer setNavigationController:self.navigationController];
     
     [self.videoPlayer setVid:self.video.vid];
@@ -129,7 +129,7 @@
     
     [self.videoPlayer enableDanmu:YES];
     
-	self.videoPlayer.shouldAutoplay = NO; // 设置是否自动播放，默认为YES
+//	self.videoPlayer.shouldAutoplay = NO; // 设置是否自动播放，默认为YES
 	
 	self.videoPlayer.enableSnapshot = YES;
     

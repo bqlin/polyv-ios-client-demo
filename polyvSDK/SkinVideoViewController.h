@@ -53,8 +53,6 @@ enum PvLogoLocation {
 
 /// 启用弹幕
 - (void)enableDanmu:(BOOL)enable;
-/// 启用片头
-- (void)enableTeaser:(BOOL)enable;
 /// 保留导航栏
 - (void)keepNavigationBar:(BOOL)keep;
 /// 设置播放器标题
