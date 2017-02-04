@@ -21,7 +21,14 @@
 /// 设置下载是否使用后台会话
 @property (nonatomic, assign) BOOL backgroundMode;
 
-//+ (id)sharedInstance;
+/**
+ *  初始化下载器
+ *
+ *  @param vid   视频 id
+ *  @param level 码率
+ *
+ *  @return PvUrlSessionDownload 对象
+ */
 - (instancetype)initWithVid:(NSString *)vid level:(int)level;
 
 

@@ -11,22 +11,19 @@
 @protocol PvCheckBoxDelegate;
 
 @interface PvCheckBox : UIButton {
-    NSString                        *_groupId;
-    id<PvCheckBoxDelegate> __unsafe_unretained _delegate;
-    BOOL _checked;
-    id _userInfo;
-    
+	NSString *_groupId;
+	BOOL _checked;
+	id _userInfo;
 }
-@property(nonatomic, copy, readonly)NSString            *groupId;
+@property(nonatomic, copy, readonly)NSString *groupId;
 
-@property(nonatomic, assign)id<PvCheckBoxDelegate> delegate;
-@property(nonatomic, assign)BOOL checked;
-@property(nonatomic, retain)id userInfo;
+@property(nonatomic, weak) id<PvCheckBoxDelegate> delegate;
+@property(nonatomic, assign) BOOL checked;
+@property(nonatomic, retain) id userInfo;
 
 - (id)initWithDelegate:(id)delegate;
 
-- (void)setDelegate:(id)delegate;
--(void)setDelegate:(id<PvCheckBoxDelegate>)delegate groupId:(NSString*)groupId;
+- (void)setDelegate:(id<PvCheckBoxDelegate>)delegate groupId:(NSString *)groupId;
 
 
 @end

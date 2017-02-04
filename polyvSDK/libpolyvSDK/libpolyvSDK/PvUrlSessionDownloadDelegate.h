@@ -12,22 +12,26 @@
 
 @optional
 
+/// 视频任务创建成功
+- (void)downloadTaskDidCreate:(PvUrlSessionDownload *)downloader withVid:(NSString *)vid;
+
+/// 视频任务开始下载
+- (void)downloadDidStart:(PvUrlSessionDownload *)downloader withVid:(NSString *)vid;
 
 /** 下载完成调用的方法*/
-- (void) downloadDidFinished:(PvUrlSessionDownload*)downloader withVid:(NSString *)vid;
+- (void)downloadDidFinished:(PvUrlSessionDownload *)downloader withVid:(NSString *)vid;
 
 /** 下载停止调用的方法*/
-- (void) dataDownloadStop:(PvUrlSessionDownload*)downloader withVid:(NSString *)vid;
+- (void)dataDownloadStop:(PvUrlSessionDownload *)downloader withVid:(NSString *)vid;
 
 /** 下载失败调用的方法*/
-- (void) dataDownloadFailed:(PvUrlSessionDownload*)downloader withVid:(NSString *)vid reason:(NSString *) reason;
+- (void)dataDownloadFailed:(PvUrlSessionDownload *)downloader withVid:(NSString *)vid reason:(NSString *)reason;
 
 /** 下载中调用的方法:获取下载百分比*/
-- (void) dataDownloadAtPercent:(PvUrlSessionDownload*)downloader withVid:(NSString *)vid percent:(NSNumber *) aPercent;
+- (void)dataDownloadAtPercent:(PvUrlSessionDownload *)downloader withVid:(NSString *)vid percent:(NSNumber *)aPercent;
 
-/** 下载中调用的方法:获取下载速率(下载开始之后此方法会一直被调用直到当前下载任务结束)*/
-- (void) dataDownloadAtRate:(PvUrlSessionDownload*)downloader withVid:(NSString *)vid rate:(NSNumber *)aRate;
-
+/** 下载中调用的方法:获取下载速率*/
+- (void)dataDownloadAtRate:(PvUrlSessionDownload *)downloader withVid:(NSString *)vid rate:(NSNumber *)aRate;
 
 
 @end
