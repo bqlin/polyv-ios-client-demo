@@ -16,13 +16,6 @@ static const CGFloat pVideoControlTimeLabelFontSize = 10.0;
 static const CGFloat pVideoControlTitleLabelFontSize = 16.0;
 static const CGFloat pVideoControlBarAutoFadeOutTimeinterval = 5.0;
 
-enum PvLogoLocation {
-	PvLogoLocationTopLeft = 0,
-	PvLogoLocationTopRight = 1,
-	PvLogoLocationBottomLeft = 2,
-	PvLogoLocationBottomRight = 3
-};
-
 @interface SkinVideoViewControllerView ()
 
 @property (nonatomic, strong) UIView *topBar;
@@ -63,29 +56,29 @@ enum PvLogoLocation {
 
 @implementation SkinVideoViewControllerView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-	self = [super initWithFrame:frame];
-	if (self) {
+- (instancetype)initWithFrame:(CGRect)frame{
+	if (self = [super initWithFrame:frame]) {
 		self.backgroundColor = [UIColor clearColor];
 		
 		[self addSubview:self.logoImageView];
 		[self addSubview:self.subtitleLabel];
 		
 		[self addSubview:self.bitRateView];
+		self.bitRateView.hidden = YES;
 		
+		// 顶部工具栏
 		[self addSubview:self.topBar];
 		[self.topBar addSubview:self.titleLabel];
 		[self.topBar addSubview:self.backButton];
 		[self.topBar addSubview:self.danmuButton];
 		[self.topBar addSubview:self.rateButton];
-		
 		[self.topBar addSubview:self.closeButton];
 		
 		[self addSubview:self.sendDanmuButton];
+		self.sendDanmuButton.hidden = YES;
+		[self addSubview:self.indicator];
 		
-		self.bitRateView.hidden = YES;
-		
+		// 底部工具栏
 		[self addSubview:self.bottomBar];
 		[self.bottomBar addSubview:self.playButton];
 		[self.bottomBar addSubview:self.pauseButton];
@@ -95,12 +88,11 @@ enum PvLogoLocation {
 		[self.bottomBar addSubview:self.shrinkScreenButton];
 		self.shrinkScreenButton.hidden = YES;
 		[self.bottomBar addSubview:self.slider];
-		[self addSubview:self.indicator];
-		
 		[self.bottomBar addSubview:self.timeLabel];
+		
 		[self addSubview:self.indicatorView];
+		[self.indicatorView startAnimating];
 		[self addSubview:self.snapshotButton];
-		self.sendDanmuButton.hidden = YES;
 		self.snapshotButton.hidden = YES;
 		self.snapshotButton.alpha = 0;
 
@@ -150,8 +142,6 @@ enum PvLogoLocation {
 	
 	self.sendDanmuButton.frame = CGRectMake(CGRectGetWidth(self.bounds) - CGRectGetWidth(self.sendDanmuButton.bounds) - 20, (CGRectGetHeight(self.bounds) - CGRectGetHeight(self.sendDanmuButton.bounds))/2, CGRectGetWidth(self.sendDanmuButton.bounds), CGRectGetHeight(self.sendDanmuButton.bounds));
 	self.snapshotButton.frame = CGRectMake(20, (CGRectGetHeight(self.bounds) - CGRectGetHeight(self.snapshotButton.bounds))/2, CGRectGetWidth(self.snapshotButton.bounds), CGRectGetHeight(self.snapshotButton.bounds));
-//	self.snapshotButton.center = self.center;
-	
 	self.closeButton.frame = CGRectMake(CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.closeButton.bounds), CGRectGetMinX(self.topBar.bounds), CGRectGetWidth(self.closeButton.bounds), CGRectGetHeight(self.closeButton.bounds));
 	self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - pVideoControlBarHeight, CGRectGetWidth(self.bounds), pVideoControlBarHeight);
 	self.bitRateView.frame = CGRectMake(2*CGRectGetWidth(self.bounds)/3, CGRectGetMinY(self.bounds), CGRectGetWidth(self.bounds)/3 ,  CGRectGetHeight(self.bounds));
@@ -174,17 +164,17 @@ enum PvLogoLocation {
 	
 	self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.slider.frame), CGRectGetHeight(self.bottomBar.bounds)-1 - CGRectGetHeight(self.timeLabel.bounds) - 2.0, CGRectGetWidth(self.slider.bounds)/2, CGRectGetHeight(self.timeLabel.bounds));
 	self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-	self.indicator.center = CGPointMake(self.center.x, self.center.y * .5);
+	self.indicator.center = CGPointMake(self.center.x, self.center.y *.5);
 	//logo 位置
 	switch (_logoPosition) {
 		case PvLogoLocationTopLeft:
-			_logoImageView.frame = CGRectMake(0, 0, _logoSize.width,_logoSize.height);
+			_logoImageView.frame = CGRectMake(0, 0, _logoSize.width, _logoSize.height);
 			break;
 		case PvLogoLocationTopRight:
-			_logoImageView.frame = CGRectMake(self.frame.size.width-_logoSize.width, 0, _logoSize.width,_logoSize.height);
+			_logoImageView.frame = CGRectMake(self.frame.size.width-_logoSize.width, 0, _logoSize.width, _logoSize.height);
 			break;
 		case PvLogoLocationBottomLeft:
-			_logoImageView.frame = CGRectMake(0, self.frame.size.height-_logoSize.height, _logoSize.width,_logoSize.height);
+			_logoImageView.frame = CGRectMake(0, self.frame.size.height-_logoSize.height, _logoSize.width, _logoSize.height);
 			break;
 		default:
 			_logoImageView.frame = CGRectMake(self.frame.size.width-_logoSize.width , self.frame.size.height-_logoSize.height, _logoSize.width, _logoSize.height);
@@ -199,24 +189,21 @@ enum PvLogoLocation {
 	self.snapshotButton.hidden = YES;
 	self.snapshotButton.alpha = 0;
 }
-- (void)setHeadTitle:(NSString*)headtitle{
+- (void)setHeadTitle:(NSString *)headtitle{
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.titleLabel setText:headtitle];
     });
 }
-- (void)videoInfoLoaded:(NSDictionary*)videoInfo{
-	
-	
-}
--(void)arrangeBitRateButtons{
-	
+
+/// 排列码率按钮
+- (void)arrangeBitRateButtons{
 	int buttonWidth = 100;
 	int buttonsize = (int)self.bitRateButtons.count*30;
 	int initHeight =(CGRectGetHeight(self.bitRateView.bounds)-buttonsize)/2;
 	
 	if (self.bitRateButtons!=nil) {
-		for (int i=0; i<self.bitRateButtons.count; i++) {
-			UIButton* _button = [self.bitRateButtons objectAtIndex:i];
+		for (int i = 0; i < self.bitRateButtons.count; i++) {
+			UIButton *_button = [self.bitRateButtons objectAtIndex:i];
 			_button.bounds = CGRectMake(0, 0, pVideoControlBarHeight, 30);
 			_button.frame = CGRectMake((CGRectGetWidth(self.bitRateView.bounds)-buttonWidth)/2, initHeight, buttonWidth, 30);
 			initHeight+=30;
@@ -224,13 +211,12 @@ enum PvLogoLocation {
 		}
 	}
 }
--(NSMutableArray*)createBitRateButton:(int)dfnum{
-	
+- (NSMutableArray *)createBitRateButton:(int)dfnum{
 	[self.bitRateView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
 	self.bitRateButtons = [NSMutableArray new];
 	
-	for (int i=0;i<=dfnum;i++) {
-		UIButton * _button = [UIButton buttonWithType:UIButtonTypeCustom];
+	for (int i = 0;i<=dfnum;i++) {
+		UIButton *_button = [UIButton buttonWithType:UIButtonTypeCustom];
 		_button.tag = i;
 		switch (i) {
 			case 0:
@@ -252,11 +238,9 @@ enum PvLogoLocation {
 		[self.bitRateButtons addObject:_button];
 		[self.bitRateView addSubview:_button];
 		//[_button addTarget:self action:@selector(action) forControlEvents:UIControlEventTouchUpInside];
-		
 	}
 	[self arrangeBitRateButtons];
 	return self.bitRateButtons;
-	
 }
 
 
@@ -265,15 +249,11 @@ enum PvLogoLocation {
 	[super didMoveToSuperview];
 	self.isBarShowing = YES;
 }
-- (void)setDanmuButtonColor:(UIColor*)color{
+- (void)setDanmuButtonColor:(UIColor *)color{
 	self.danmuButton.layer.borderColor = [color CGColor];
 	[self.danmuButton setTitleColor:color forState:UIControlStateNormal];
-	
-	
-	
 }
-- (void)animateHide
-{
+- (void)animateHide{
 	if (!self.isBarShowing) {
 		return;
 	}
@@ -284,7 +264,6 @@ enum PvLogoLocation {
 		self.snapshotButton.alpha = 0.0;
 	} completion:^(BOOL finished) {
 		self.isBarShowing = NO;
-		
 	}];
 }
 
@@ -450,14 +429,11 @@ enum PvLogoLocation {
 	return _rateButton;
 }
 
--(PvExamView*) pvExamView{
+- (PvExamView *) pvExamView{
 	if (!_pvExamView) {
-		_pvExamView = [[PvExamView alloc]initWithFrame:self.frame];
+		_pvExamView = [[PvExamView alloc] initWithFrame:self.frame];
 	}
-	
 	return _pvExamView;
-	
-	
 }
 - (UIButton *)sendDanmuButton{
 	if (!_sendDanmuButton) {
@@ -522,7 +498,7 @@ enum PvLogoLocation {
 
 - (PLVIndicator *)indicator{
 	if (!_indicator) {
-		_indicator = [[PLVIndicator alloc]initWithFrame:CGRectMake(10, 10, 10, 10)];
+		_indicator = [[PLVIndicator alloc] initWithFrame:CGRectMake(10, 10, 10, 10)];
 		_indicator.alpha = 0;
 	}
 	return _indicator;
@@ -580,7 +556,7 @@ enum PvLogoLocation {
 	}
 	return _titleLabel;
 }
--(UILabel*)subtitleLabel{
+- (UILabel *)subtitleLabel{
 	if (!_subtitleLabel) {
 		_subtitleLabel = [SubTitleLabel new];
 		_subtitleLabel.backgroundColor = [UIColor clearColor];
@@ -591,32 +567,28 @@ enum PvLogoLocation {
 		//_subtitleLabel.bounds = CGRectMake(0, 0, pVideoControlTitleLabelFontSize, pVideoControlTitleLabelFontSize);
 		//_subtitleLabel.hidden = TRUE;
 		_subtitleLabel.shadowColor = [UIColor blackColor];
-		_subtitleLabel.shadowOffset = CGSizeMake(0,1);
+		_subtitleLabel.shadowOffset = CGSizeMake(0, 1);
 		[_subtitleLabel sizeToFit];
-		
 	}
 	return _subtitleLabel;
 }
 
-- (UIActivityIndicatorView *)indicatorView
-{
+- (UIActivityIndicatorView *)indicatorView{
 	if (!_indicatorView) {
 		_indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-		[_indicatorView stopAnimating];
+		_indicatorView.hidesWhenStopped = YES;
+//		[_indicatorView stopAnimating];
 	}
 	return _indicatorView;
 }
 
 
-- (NSString *)videoImageName:(NSString *)name
-{
-	
+- (NSString *)videoImageName:(NSString *)name{
 	return name;
 }
 
--(void)dealloc{
+- (void)dealloc{
 	NSLog(@"%s", __FUNCTION__);
 }
-
 
 @end

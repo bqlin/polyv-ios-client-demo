@@ -8,13 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PLVMoviePlayerController.h"
-
-enum PvLogoLocation {
-	PvLogoLocationTopLeft = 0,
-	PvLogoLocationTopRight = 1,
-	PvLogoLocationBottomLeft = 2,
-	PvLogoLocationBottomRight = 3
-};
+#import "SkinVideoViewControllerView.h"
 
 @interface SkinVideoViewController : PLVMoviePlayerController
 

@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 easefun. All rights reserved.
 //
 #import "SkinVideoViewController.h"
-#import "SkinVideoViewControllerView.h"
 #import "PolyvSettings.h"
 #import "PLVMoviePlayerController.h"
 #import "PvExam.h"
