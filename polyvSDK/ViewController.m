@@ -37,9 +37,8 @@
     return NO;
 }
 
--(NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+	return UIInterfaceOrientationMaskPortrait;
 }
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     //NSLog(@"root preferredInterfaceOrientationForPresentation");
