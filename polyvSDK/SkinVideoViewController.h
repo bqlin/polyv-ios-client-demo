@@ -32,7 +32,7 @@ enum PvLogoLocation {
 @property (nonatomic, copy) void(^watchCompletedBlock)(void);
 
 @property (nonatomic, assign) CGRect frame;
-
+/// 开始播放时间
 @property (nonatomic, assign) NSTimeInterval watchStartTime;
 @property (nonatomic, assign) BOOL autoContinue;         // 继续上一次的视频。如果设置为YES,视频将从上次播放停止的位置继续播放
 @property (nonatomic, assign) BOOL isWatchCompleted;    // 播放是否完成
@@ -59,8 +59,6 @@ enum PvLogoLocation {
 - (void)setHeadTitle:(NSString *)headtitle;
 - (void)setNavigationController:(UINavigationController *)navigationController;
 - (void)setParentViewController:(UIViewController *)viewController;
-//- (void)stop;
-//- (void)setVid:(NSString *)vid level:(int)level;
 
 /// 设置播放器logo
 - (void)setLogo:(UIImage *)image location:(int)location size:(CGSize)size alpha:(CGFloat)alpha;
@@ -70,11 +68,8 @@ enum PvLogoLocation {
 - (void)cancelObserver;
 /// 销毁
 - (void)cancel;
-/// 销毁
 - (void)dismiss;
 
-//额外参数，用来跟踪出错用户
-- (void)setParam1:(NSString *)param1;
 /// 发送跑马灯
 - (void)rollInfo:(NSString *)info font:(UIFont *)font color:(UIColor *)color withDuration:(NSTimeInterval)duration;
 
@@ -83,5 +78,8 @@ enum PvLogoLocation {
 
 // 监控播放器状态  刷新播放器状态(进度条、时间显示器等) 默认为自动调用
 - (void)monitorVideoPlayback;
+
+//额外参数，用来跟踪出错用户
+- (void)setParam1:(NSString *)param1;
 
 @end

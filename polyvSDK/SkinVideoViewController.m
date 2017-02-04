@@ -16,13 +16,17 @@
 #import "PolyvUtil.h"
 //#import "PvExamView.h"
 #define kPanPrecision 20
+#define USER_DICT_AUTOCONTINUE @"autoContinue"
 
-static const CGFloat pVideoPlayerControllerAnimationTimeinterval = 0.3f;
+static const CGFloat pPlayerAnimationTimeinterval = 0.3f;
 NSString *const PLVSkinVideoViewControllerVidAvailable = @"PLVSkinVideoViewControllerVidAvailable";
 
 @interface SkinVideoViewController ()<PLVMoviePlayerDelegate, PvDanmuSendViewDelegate>
 
+/// 播放控制视图
 @property (nonatomic, strong) SkinVideoViewControllerView *videoControl;
+/// 当前播放时间
+@property (nonatomic, assign) double currentTime;
 
 @property (nonatomic, strong) UIView *movieBackgroundView;
 @property (nonatomic, assign) BOOL isFullscreenMode;
@@ -40,7 +44,6 @@ NSString *const PLVSkinVideoViewControllerVidAvailable = @"PLVSkinVideoViewContr
 @property (nonatomic, assign) NSString *teaserURL;
 @property (nonatomic, assign) NSURL *videoContentURL;
 @property (nonatomic, assign) NSString *param1;
-
 
 @property (nonatomic, assign) CGPoint startPoint;
 @property (nonatomic, assign) CGFloat curPosition;
@@ -89,9 +92,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 	BOOL _isSwitching;  // 切换码率中
 	NSTimer *_watchTimer;
 	
-	//    PvVideo *_pvVideo;
-	int _pvPlayMode;
-	
 	NSMutableArray *_videoExams;
 	NSMutableDictionary *_parsedSrt;
 }
@@ -124,7 +124,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 
 - (void)setEnableExam:(BOOL)enableExam{
 	_enableExam = enableExam;
-	//NSLog(@"%s - vid = %@ - 是否可交互 = %d", __FUNCTION__, self.getVid, _pvVideo.isInteractiveVideo);
 	if (!self.getVid || !self.video.isInteractiveVideo) return;
 	if (_enableExam) { // 开启问答
 		//NSLog(@"开启问答");
@@ -150,58 +149,45 @@ typedef NS_ENUM(NSInteger, panHandler){
 }
 
 #pragma mark - dealloc & init
+- (void)dealloc{
+	NSLog(@"%s", __FUNCTION__);
+}
+
 - (instancetype)initWithFrame:(CGRect)frame{
 	if (self = [super init]) {
 		frame = CGRectMake(frame.origin.x, frame.origin.y + 20, frame.size.width, frame.size.height);
-		[self setFrame:frame];
-		
-		//		self.view.frame = frame;
-		//[self resetIfNeed];
-		self.view.backgroundColor = [UIColor blackColor];
-		self.controlStyle = MPMovieControlStyleNone;
+		self.frame = frame;
+		self.originFrame = frame;
 		[self.view addSubview:self.videoControl];
 		self.videoControl.frame = self.view.bounds;
+		
+		self.view.backgroundColor = [UIColor blackColor];
+		self.controlStyle = MPMovieControlStyleNone;
 		self.videoControl.closeButton.hidden = YES;
-		self.originFrame = frame;
-		[self configControlAction];
-		//[self configObserver];
+		[self.videoControl.indicatorView startAnimating];
 		self.enableDanmuDisplay = YES;
 		self.enableRateDisplay  = YES;
+		[self configControlAction];
+		//[self configObserver];
 	}
 	return self;
 }
 
 #pragma mark - 外部方法
 /// 窗口模式
-- (void)showInWindow
-{
+- (void)showInWindow{
 	UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
 	if (!keyWindow) {
 		keyWindow = [[[UIApplication sharedApplication] windows] firstObject];
 	}
 	[keyWindow addSubview:self.view];
 	self.view.alpha = 0.0;
-	[UIView animateWithDuration:pVideoPlayerControllerAnimationTimeinterval animations:^{
-		self.view.alpha = 1.0;
-	} completion:^(BOOL finished) {
-		
-	}];
 	self.videoControl.closeButton.hidden = NO;
 	self.videoControl.showInWindowMode = YES;
 	self.videoControl.backButton.hidden = YES;
-}
-
-/// 启用弹幕
-- (void)enableDanmu:(BOOL)enable{
-	self.danmuEnabled  = enable;
-	CGRect dmFrame;
-	dmFrame = self.view.bounds;
-	self.danmuManager = [[PVDanmuManager alloc] initWithFrame:dmFrame withVid:self.vid inView:self.view underView:self.videoControl durationTime:1];
-	if(self.danmuEnabled){
-		[self.videoControl setDanmuButtonColor:[UIColor yellowColor]];
-	}else{
-		[self.videoControl setDanmuButtonColor:[UIColor whiteColor]];
-	}
+	[UIView animateWithDuration:pPlayerAnimationTimeinterval animations:^{
+		self.view.alpha = 1.0;
+	} completion:^(BOOL finished) {}];
 }
 
 /// 保留导航栏
@@ -214,6 +200,19 @@ typedef NS_ENUM(NSInteger, panHandler){
 		self.originFrame = frame;
 		[_navigationController setNavigationBarHidden:NO animated:NO];
 		self.videoControl.backButton.hidden = YES;
+	}
+}
+
+/// 启用弹幕
+- (void)enableDanmu:(BOOL)enable{
+	self.danmuEnabled  = enable;
+	CGRect dmFrame;
+	dmFrame = self.view.bounds;
+	self.danmuManager = [[PVDanmuManager alloc] initWithFrame:dmFrame withVid:self.vid inView:self.view underView:self.videoControl durationTime:1];
+	if(self.danmuEnabled){
+		[self.videoControl setDanmuButtonColor:[UIColor yellowColor]];
+	}else{
+		[self.videoControl setDanmuButtonColor:[UIColor whiteColor]];
 	}
 }
 
@@ -242,37 +241,34 @@ typedef NS_ENUM(NSInteger, panHandler){
 }
 
 /// 注册监听
-- (void)configObserver
-{
+- (void)configObserver{
 	super.delegate = self;
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	// 播放状态改变，可配合playbakcState属性获取具体状态
+	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerPlaybackStateDidChangeNotification) name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
+	// 媒体网络加载状态改变
+	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerLoadStateDidChangeNotification) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
+	// 视频显示就绪
+	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerReadyForDisplayDidChangeNotification) name:MPMoviePlayerReadyForDisplayDidChangeNotification object:nil];
+	// 播放时长可用
+	[notificationCenter addObserver:self selector:@selector(onMPMovieDurationAvailableNotification) name:MPMovieDurationAvailableNotification object:nil];
+	// 媒体播放完成或用户手动退出, 具体原因通过MPMoviePlayerPlaybackDidFinishReasonUserInfoKey key值确定
+	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerPlaybackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+	// 视频就绪状态改变
+	[notificationCenter addObserver:self selector:@selector(onMediaPlaybackIsPreparedToPlayDidChangeNotification) name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification object:nil];
 	
-	//	[notificationCenter addObserver:self selector:@selector(vidAvailable) name:PLVSkinVideoViewControllerVidAvailable object:nil];
-	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerPlaybackStateDidChangeNotification) name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];      // 播放状态改变，可配合playbakcState属性获取具体状态
-	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerLoadStateDidChangeNotification) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];          // 媒体网络加载状态改变
-	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerReadyForDisplayDidChangeNotification) name:MPMoviePlayerReadyForDisplayDidChangeNotification object:nil];    // 视频显示状态改变
-	[notificationCenter addObserver:self selector:@selector(onMPMovieDurationAvailableNotification) name:MPMovieDurationAvailableNotification object:nil];                 // 确定了媒体播放时长后
-	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerPlaybackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];           // 媒体播放完成或用户手动退出, 具体原因通过MPMoviePlayerPlaybackDidFinishReasonUserInfoKey key值确定
-	//    [notificationCenter addObserver:self selector:@selector(videoInfoLoaded) name:@"NotificationVideoInfoLoaded" object:nil];
-	[notificationCenter addObserver:self selector:@selector(onMediaPlaybackIsPreparedToPlayDidChangeNotification) name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification object:nil];    // 准好播放
-	
-	//	[notificationCenter addObserverForName:MPMoviePlayerNowPlayingMovieDidChangeNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *_Nonnull note) {
-	//		// 显示码率
-	//		[self setBitRateButtonDisplay:self.currentLevel];
-	//		// 本地视频不允许切换码率
-	//		self.videoControl.bitRateButton.enabled = [self isExistedTheLocalVideo:self.vid] == 0;
-	//	}];
-	
-	
+	[notificationCenter addObserver:self selector:@selector(onMPMoviePlayerNowPlayingMovieDidChangeNotification) name:MPMoviePlayerNowPlayingMovieDidChangeNotification object:nil];
+
 	[self addOrientationObserver];
 	UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panHandler:)];
 	pan.delegate                = self;
 	[self.view addGestureRecognizer:pan];
 }
 
+
+
 /// 移除监听
-- (void)cancelObserver
-{
+- (void)cancelObserver{
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[self removeOrientationObserver];
 }
@@ -287,13 +283,12 @@ typedef NS_ENUM(NSInteger, panHandler){
 	[_stallTimer invalidate];
 }
 
-/// 销毁
-- (void)dismiss
-{
+/// 销毁，在导航控制器中不会执行
+- (void)dismiss{
 	[self stopDurationTimer];
 	[self stopBufferTimer];
 	__weak typeof(self) weakSelf = self;
-	[UIView animateWithDuration:pVideoPlayerControllerAnimationTimeinterval animations:^{
+	[UIView animateWithDuration:pPlayerAnimationTimeinterval animations:^{
 		weakSelf.view.alpha = 0.0;
 	} completion:^(BOOL finished) {
 		[weakSelf.view removeFromSuperview];
@@ -337,52 +332,19 @@ typedef NS_ENUM(NSInteger, panHandler){
 // 自动续播，建议根据实际项目需求实现记录的存储
 - (void)setAutoContinue:(BOOL)autoContinue {
 	if (autoContinue) {
-		NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"dict"];
-		if (dict) {
-			NSNumber *startTime = [dict objectForKey:self.vid];
-			if (startTime && startTime.integerValue > 0) {
-				[self setWatchStartTime:startTime.doubleValue];
+		_autoContinue = autoContinue;
+		NSDictionary *autoContinueDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:USER_DICT_AUTOCONTINUE];
+		if (autoContinueDict) {
+			double startTime = [autoContinueDict[self.vid] doubleValue];
+			if (startTime > 0) {
+				self.watchStartTime = startTime;
+				NSLog(@"start time = %f", self.watchStartTime);
 			}
 		}
 	}
 }
 
-- (void)monitorVideoPlayback
-{
-	if (_isSeeking) true;
-	if (_isSwitching) {     // 正在切换码率，return出去
-		return;
-	}
-	
-	double currentTime = floor(self.currentPlaybackTime);
-	double totalTime = floor(self.duration);
-	[self setTimeLabelValues:currentTime totalTime:totalTime];
-	self.videoControl.slider.progressValue = ceil(currentTime);
-	
-	
-	[self searchSubtitles];
-	if (self.danmuEnabled) {
-		[_danmuManager rollDanmu:currentTime];
-	}
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	
-	if(self.enableExam){
-		PvExam *examShouldShow;
-		for(PvExam *exam in _videoExams){
-			if (exam.seconds < currentTime && ![[userDefaults stringForKey:[NSString stringWithFormat:@"exam_%@", exam.examId]] isEqualToString:@"Y"]) {
-				//				NSLog(@"%sYYY", __FUNCTION__);
-				examShouldShow = exam;
-				break;
-			}
-		}
-		if (examShouldShow) {
-			[self pause];
-			[self showExam:examShouldShow];
-		}
-	}
-}
-#pragma mark - 内部方法
-
+#pragma mark - 重写父类方法
 - (void)play{
 	[self.videoControl.indicatorView startAnimating];
 	[super play];
@@ -393,190 +355,16 @@ typedef NS_ENUM(NSInteger, panHandler){
 	[super stop];
 }
 
-
-
-- (void)configControlAction
-{
-	[self.videoControl.playButton addTarget:self action:@selector(playButtonClick) forControlEvents:UIControlEventTouchUpInside];
-	[self.videoControl.backButton addTarget:self action:@selector(backButtonAction) forControlEvents:UIControlEventTouchUpInside];
-	[self.videoControl.pauseButton addTarget:self action:@selector(pauseButtonClick) forControlEvents:UIControlEventTouchUpInside];
-	[self.videoControl.closeButton addTarget:self action:@selector(closeButtonClick) forControlEvents:UIControlEventTouchUpInside];
-	[self.videoControl.danmuButton addTarget:self action:@selector(danmuButtonClick) forControlEvents:UIControlEventTouchUpInside];
-	[self.videoControl.rateButton addTarget:self action:@selector(rateButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-	[self.videoControl.sendDanmuButton addTarget:self action:@selector(sendDanmuButtonClick) forControlEvents:UIControlEventTouchUpInside];
-	[self.videoControl.fullScreenButton addTarget:self action:@selector(fullScreenAction:) forControlEvents:UIControlEventTouchUpInside];
-	[self.videoControl.bitRateButton addTarget:self action:@selector(bitRateButtonClick) forControlEvents:UIControlEventTouchUpInside];
-	[self.videoControl.shrinkScreenButton addTarget:self action:@selector(fullScreenAction:) forControlEvents:UIControlEventTouchUpInside];
-	[self.videoControl.slider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged | UIControlEventTouchDragInside];
-	[self.videoControl.slider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
-	[self.videoControl.slider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside | UIControlEventTouchCancel];
-	[self.videoControl.snapshotButton addTarget:self action:@selector(snapshot) forControlEvents:UIControlEventTouchUpInside];
-	[self setProgressSliderMaxMinValues];
-	[self monitorVideoPlayback];
-}
-
-#pragma mark - PLVMoviePlayerDelegate
-- (void)moviePlayer:(PLVMoviePlayerController *)player didLoadVideoInfo:(PvVideo *)video{
-	// 状态初始化
-	
-	// 码率列表
-	NSMutableArray *buttons = [self.videoControl createBitRateButton:[super getLevel]];
-	for (int i = 0; i < buttons.count; i++) {
-		UIButton *_button = [buttons objectAtIndex:i];
-		[_button addTarget:self action:@selector(bitRateViewButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-	}
-	
-	// 问答
-	[self setEnableExam:self.enableExam];
-	
-	// 字幕
-	[self parseSubRip];
-}
-
-
-- (void)setBitRateButtonDisplay:(int)level {
-	//	if (LOG_INFO) NSLog(@"%s", __FUNCTION__);
-	NSString *titlt = [NSString new];
-	switch (level) {
-		case 0: titlt = @"自动";
-			break;
-		case 1: titlt = @"流畅";
-			break;
-		case 2: titlt = @"高清";
-			break;
-		case 3: titlt = @"超清";
-			break;
-		default:
-			break;
-	}
-	[self.videoControl.bitRateButton setTitle:titlt forState:UIControlStateNormal];
-}
-
-- (void)syncPlayButtonState{
-	
-	if (self.loadState & MPMovieLoadStatePlayable
-		&& self.loadState & MPMovieLoadStatePlayable
-		&& self.playbackState == MPMoviePlaybackStatePlaying
-		&& self.playbackState)
-	{
-		self.videoControl.playButton.hidden = YES;
-		self.videoControl.pauseButton.hidden = NO;
-	}else
-	{
-		self.videoControl.playButton.hidden = NO;
-		self.videoControl.pauseButton.hidden = YES;
-	}
-}
-
-
-#pragma mark 处理字幕
-- (void)searchSubtitles{
-	if (self.playbackState == MPMoviePlaybackStatePlaying) {
-		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K <= %f AND %K >= %f", @"from", self.currentPlaybackTime, @"to", self.currentPlaybackTime];
-		
-		NSArray *values = [_parsedSrt allValues];
-		if ([values count] > 0) {
-			NSArray *search = [values filteredArrayUsingPredicate:predicate];
-			if ([search count] > 0) {
-				NSDictionary *result =  [search objectAtIndex:0];
-				NSString *text = [result objectForKey:@"text"];
-				self.videoControl.subtitleLabel.text = text;
-			}else{
-				self.videoControl.subtitleLabel.text = @"";
-			}
-		}
-	}
-}
-- (void)parseSubRip{
-	_parsedSrt = [NSMutableDictionary new];
-	
-	NSString *val = nil;
-	NSArray *values = [self.video.videoSrts allValues];
-	
-	if ([values count] != 0){
-		//暂时只选择第一条字幕
-		val = [values objectAtIndex:0];
-	}
-	if (!val) {
-		return;
-	}
-	NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:val] encoding:NSUTF8StringEncoding error:NULL];
-	if (string == nil) {
-		return;
-	}
-	
-	string = [string stringByReplacingOccurrencesOfString:@"\n\r\n" withString:@"\n\n"];
-	string = [string stringByReplacingOccurrencesOfString:@"\n\n\n" withString:@"\n\n"];
-	
-	
-	NSScanner *scanner = [NSScanner scannerWithString:string];
-	
-	while (![scanner isAtEnd])
-	{
-		@autoreleasepool
-		{
-			NSString *indexString;
-			(void) [scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&indexString];
-			
-			NSString *startString;
-			(void) [scanner scanUpToString:@" --> " intoString:&startString];
-			NSScanner *aScanner = [NSScanner scannerWithString:startString];
-			
-			NSTimeInterval h =  0.0;
-			NSTimeInterval m =  0.0;
-			NSTimeInterval s =  0.0;
-			NSTimeInterval c =  0.0;
-			
-			[aScanner scanDouble:&h];
-			[aScanner scanString:@":" intoString:NULL];
-			[aScanner scanDouble:&m];
-			[aScanner scanString:@":" intoString:NULL];
-			
-			[aScanner scanDouble:&s];
-			[aScanner scanString:@"," intoString:NULL];
-			[aScanner scanDouble:&c];
-			double fromTime = (h * 3600.0) + (m * 60.0) + s + (c / 1000.0);
-			
-			
-			(void) [scanner scanString:@"-->" intoString:NULL];
-			
-			NSString *endString;
-			(void) [scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&endString];
-			aScanner = [NSScanner scannerWithString:endString];
-			[aScanner scanDouble:&h];
-			[aScanner scanString:@":" intoString:NULL];
-			[aScanner scanDouble:&m];
-			[aScanner scanString:@":" intoString:NULL];
-			
-			[aScanner scanDouble:&s];
-			[aScanner scanString:@"," intoString:NULL];
-			[aScanner scanDouble:&c];
-			double endTime = (h * 3600.0) + (m * 60.0) + s + (c / 1000.0);
-			
-			NSString *textString;
-			// BEGIN EDIT
-			(void) [scanner scanUpToString:@"\n\n" intoString:&textString];
-			
-			textString = [textString stringByReplacingOccurrencesOfString:@"\r\n" withString:@" "];
-			textString = [textString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-			// END EDIT
-			
-			NSMutableDictionary *dictionary = [NSMutableDictionary new];
-			[dictionary setObject:[NSNumber numberWithDouble:fromTime] forKey:@"from"];
-			[dictionary setObject:[NSNumber numberWithDouble:endTime] forKey:@"to"];
-			[dictionary setObject:textString forKey:@"text"];
-			
-			
-			
-			[_parsedSrt setObject:dictionary forKey:indexString];
-		}
-	}
-}
-
-
-
-
+#pragma mark - 内部方法
 #pragma mark 播放器通知响应
+
+// 播放资源变化
+- (void)onMPMoviePlayerNowPlayingMovieDidChangeNotification{
+	// 显示码率
+	[self setBitRateButtonDisplay:self.currentLevel];
+	// 本地视频不允许切换码率
+	self.videoControl.bitRateButton.enabled = [self isExistedTheLocalVideo:self.vid] == 0;
+}
 
 // 视频显示信息改变
 - (void)onMPMoviePlayerReadyForDisplayDidChangeNotification{
@@ -585,7 +373,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 
 // 播放状态改变
 - (void)onMPMoviePlayerPlaybackStateDidChangeNotification{
-	//NSLog(@"%s,%f", __FUNCTION__, self.currentPlaybackTime);
 	[self syncPlayButtonState];
 	if (self.playbackState == MPMoviePlaybackStatePlaying) {
 		[self.videoControl.indicatorView stopAnimating];
@@ -595,7 +382,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 	} else{
 		[self stopDurationTimer];
 		if (self.playbackState == MPMoviePlaybackStateStopped) {
-			//NSLog(@"%s - MPMoviePlaybackStateStopped", __FUNCTION__);
 			[self.videoControl animateShow];
 		}
 	}
@@ -603,7 +389,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 
 // 网络加载状态改变
 - (void)onMPMoviePlayerLoadStateDidChangeNotification{
-	//     NSLog(@"%s,%f", __FUNCTION__, self.currentPlaybackTime);
+	//NSLog(@"%s,%f", __FUNCTION__, self.currentPlaybackTime);
 	
 	[self syncPlayButtonState];
 	
@@ -614,15 +400,37 @@ typedef NS_ENUM(NSInteger, panHandler){
 		[self.videoControl.indicatorView stopAnimating];
 		_isPrepared = YES;
 	}else{
-		//		NSLog(@"state = %@", @(self.loadState));
+		//NSLog(@"state = %@", @(self.loadState));
+	}
+	if (self.loadState & MPMovieLoadStatePlayable) {
+	}
+}
+
+// 做好播放准备后
+- (void)onMediaPlaybackIsPreparedToPlayDidChangeNotification{
+	if (_watchStartTime > 0 && _watchStartTime < self.duration) {
+		self.currentPlaybackTime = _watchStartTime;
+		[self setTimeLabelValues:_watchStartTime totalTime:self.duration];
+		_watchStartTime = -1;
+		_isSwitching = NO;
 	}
 }
 
 // 播放完成或退出
 - (void)onMPMoviePlayerPlaybackDidFinishNotification:(NSNotification *)notification{
-	//    NSLog(@"%s - %@", __FUNCTION__, notification);
-	
 	[self.videoControl.indicatorView stopAnimating];
+	
+	if (self.autoContinue) {
+		NSLog(@"当前时间 %f", self.currentTime);
+		NSMutableDictionary *autoContinueDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:USER_DICT_AUTOCONTINUE].mutableCopy;
+		if (!autoContinueDict) autoContinueDict = [NSMutableDictionary dictionary];
+		autoContinueDict[self.vid] = @(self.currentTime);
+		NSLog(@"auto dict = %@", autoContinueDict);
+		[[NSUserDefaults standardUserDefaults] setObject:autoContinueDict forKey:USER_DICT_AUTOCONTINUE];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
+	
+	
 	//double totalTime = floor(self.duration);
 	//[self setTimeLabelValues:totalTime totalTime:totalTime];
 	//====error report
@@ -638,10 +446,11 @@ typedef NS_ENUM(NSInteger, panHandler){
 		
 		self.isWatchCompleted = YES;
 		
-		NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"dict"]];
-		if (self.vid) {         // 此处判断，存在vid为空的情况
-			[mDict removeObjectForKey:self.vid];        // 播放完成remove掉之前的记录
-			[[NSUserDefaults standardUserDefaults] setObject:mDict forKey:@"dict"];
+		// 播放结束清除续播记录
+		NSMutableDictionary *autoContinueDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:USER_DICT_AUTOCONTINUE].mutableCopy;
+		if (self.vid && autoContinueDict.count) {
+			[autoContinueDict removeObjectForKey:self.vid];
+			[[NSUserDefaults standardUserDefaults] setObject:autoContinueDict forKey:USER_DICT_AUTOCONTINUE];
 			[[NSUserDefaults standardUserDefaults] synchronize];
 		}
 		
@@ -664,19 +473,30 @@ typedef NS_ENUM(NSInteger, panHandler){
 }
 
 - (void)onMPMovieDurationAvailableNotification{
-	//	NSLog(@"%s", __FUNCTION__);
+	//NSLog(@"%s", __FUNCTION__);
 	[self setProgressSliderMaxMinValues];
 }
 
-// 做好播放准备后
-- (void)onMediaPlaybackIsPreparedToPlayDidChangeNotification{
-	//     NSLog(@"%s,%f", __FUNCTION__, self.currentPlaybackTime);
-	if (_watchStartTime > 0 && self.playbackState != MPMoviePlaybackStateStopped) {
-		
-		[self setCurrentPlaybackTime:_watchStartTime];
-		_watchStartTime = -1;
-		_isSwitching = NO;
-	}
+
+
+/// 配置按钮事件
+- (void)configControlAction{
+	[self.videoControl.playButton addTarget:self action:@selector(playButtonClick) forControlEvents:UIControlEventTouchUpInside];
+	[self.videoControl.backButton addTarget:self action:@selector(backButtonAction) forControlEvents:UIControlEventTouchUpInside];
+	[self.videoControl.pauseButton addTarget:self action:@selector(pauseButtonClick) forControlEvents:UIControlEventTouchUpInside];
+	[self.videoControl.closeButton addTarget:self action:@selector(closeButtonClick) forControlEvents:UIControlEventTouchUpInside];
+	[self.videoControl.danmuButton addTarget:self action:@selector(danmuButtonClick) forControlEvents:UIControlEventTouchUpInside];
+	[self.videoControl.rateButton addTarget:self action:@selector(rateButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+	[self.videoControl.sendDanmuButton addTarget:self action:@selector(sendDanmuButtonClick) forControlEvents:UIControlEventTouchUpInside];
+	[self.videoControl.fullScreenButton addTarget:self action:@selector(fullScreenAction:) forControlEvents:UIControlEventTouchUpInside];
+	[self.videoControl.bitRateButton addTarget:self action:@selector(bitRateButtonClick) forControlEvents:UIControlEventTouchUpInside];
+	[self.videoControl.shrinkScreenButton addTarget:self action:@selector(fullScreenAction:) forControlEvents:UIControlEventTouchUpInside];
+	[self.videoControl.slider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged | UIControlEventTouchDragInside];
+	[self.videoControl.slider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
+	[self.videoControl.slider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside | UIControlEventTouchCancel];
+	[self.videoControl.snapshotButton addTarget:self action:@selector(snapshot) forControlEvents:UIControlEventTouchUpInside];
+	[self setProgressSliderMaxMinValues];
+	[self monitorVideoPlayback];
 }
 
 #pragma mark 按钮事件
@@ -690,27 +510,19 @@ typedef NS_ENUM(NSInteger, panHandler){
 		case 0:
 			[super switchLevel:0];
 			[self.videoControl.bitRateButton setTitle:@"自动" forState:UIControlStateNormal];
-			
 			break;
 		case 1:
 			[super switchLevel:1];
 			[self.videoControl.bitRateButton setTitle:@"流畅" forState:UIControlStateNormal];
-			
-			
 			break;
 		case 2:
 			[super switchLevel:2];
 			[self.videoControl.bitRateButton setTitle:@"高清" forState:UIControlStateNormal];
-			
-			
 			break;
 		case 3:
 			[super switchLevel:3];
 			[self.videoControl.bitRateButton setTitle:@"超清" forState:UIControlStateNormal];
-			
-			
 			break;
-			
 		default:
 			break;
 	}
@@ -794,7 +606,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 		self.videoControl.bitRateView.hidden = NO;
 		[self.videoControl animateHide];
 		self.isBitRateViewShowing = YES;
-		
 	}else{
 		self.videoControl.bitRateView.hidden = YES;
 		self.isBitRateViewShowing = NO;
@@ -810,13 +621,9 @@ typedef NS_ENUM(NSInteger, panHandler){
 - (void)progressSliderTouchBegan:(UISlider *)slider {
 	[self pause];
 	[self.videoControl cancelAutoFadeOutControlBar];
-	
-	//	[_stallTimer]
-	//	self.videoControl.timeLabel
 }
 
 - (void)progressSliderValueChanged:(UISlider *)slider {
-	//	NSLog(@"slider: %f", slider.value);
 	_isSeeking = YES;
 	double currentTime = floor(slider.value);
 	double totalTime = floor(self.duration);
@@ -824,12 +631,171 @@ typedef NS_ENUM(NSInteger, panHandler){
 }
 
 - (void)progressSliderTouchEnded:(UISlider *)slider {
-	//NSLog(@"%s", __FUNCTION__);
 	[self.videoControl autoFadeOutControlBar];
 	[self setCurrentPlaybackTime:floor(slider.value)];
 	[self play];
 	[self.videoControl.indicatorView stopAnimating];
 	_isSeeking = NO;
+}
+
+#pragma mark - PLVMoviePlayerDelegate
+- (void)moviePlayer:(PLVMoviePlayerController *)player didLoadVideoInfo:(PvVideo *)video{
+	// 维护状态
+	
+	// 码率列表
+	NSMutableArray *buttons = [self.videoControl createBitRateButton:[super getLevel]];
+	for (int i = 0; i < buttons.count; i++) {
+		UIButton *_button = [buttons objectAtIndex:i];
+		[_button addTarget:self action:@selector(bitRateViewButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+	}
+	
+	// 问答
+	[self setEnableExam:self.enableExam];
+	
+	// 字幕
+	[self parseSubRip];
+}
+
+- (void)moviePlayerTeaserDidBegin:(PLVMoviePlayerController *)player{
+	self.videoControl.hidden = YES;
+}
+- (void)moviePlayerTeaserDidEnd:(PLVMoviePlayerController *)player{
+	self.videoControl.hidden = NO;
+}
+
+
+- (void)setBitRateButtonDisplay:(int)level {
+	NSString *titlt = [NSString new];
+	switch (level) {
+		case 0: titlt = @"自动";
+			break;
+		case 1: titlt = @"流畅";
+			break;
+		case 2: titlt = @"高清";
+			break;
+		case 3: titlt = @"超清";
+			break;
+		default:
+			break;
+	}
+	[self.videoControl.bitRateButton setTitle:titlt forState:UIControlStateNormal];
+}
+
+- (void)syncPlayButtonState{
+	if (self.loadState & MPMovieLoadStatePlayable
+		&& self.loadState & MPMovieLoadStatePlayable
+		&& self.playbackState == MPMoviePlaybackStatePlaying
+		&& self.playbackState) {
+		self.videoControl.playButton.hidden = YES;
+		self.videoControl.pauseButton.hidden = NO;
+	}else{
+		self.videoControl.playButton.hidden = NO;
+		self.videoControl.pauseButton.hidden = YES;
+	}
+}
+
+
+#pragma mark 处理字幕
+- (void)searchSubtitles{
+	if (self.playbackState == MPMoviePlaybackStatePlaying) {
+		NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K <= %f AND %K >= %f", @"from", self.currentPlaybackTime, @"to", self.currentPlaybackTime];
+		
+		NSArray *values = [_parsedSrt allValues];
+		if ([values count] > 0) {
+			NSArray *search = [values filteredArrayUsingPredicate:predicate];
+			if ([search count] > 0) {
+				NSDictionary *result =  [search objectAtIndex:0];
+				NSString *text = [result objectForKey:@"text"];
+				self.videoControl.subtitleLabel.text = text;
+			}else{
+				self.videoControl.subtitleLabel.text = @"";
+			}
+		}
+	}
+}
+- (void)parseSubRip{
+	_parsedSrt = [NSMutableDictionary new];
+	
+	NSString *val = nil;
+	NSArray *values = [self.video.videoSrts allValues];
+	
+	if ([values count] != 0){
+		//暂时只选择第一条字幕
+		val = [values objectAtIndex:0];
+	}
+	if (!val) {
+		return;
+	}
+	NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:val] encoding:NSUTF8StringEncoding error:NULL];
+	if (string == nil) {
+		return;
+	}
+	
+	string = [string stringByReplacingOccurrencesOfString:@"\n\r\n" withString:@"\n\n"];
+	string = [string stringByReplacingOccurrencesOfString:@"\n\n\n" withString:@"\n\n"];
+	
+	NSScanner *scanner = [NSScanner scannerWithString:string];
+	
+	while (![scanner isAtEnd])
+	{
+		@autoreleasepool
+		{
+			NSString *indexString;
+			(void) [scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&indexString];
+			
+			NSString *startString;
+			(void) [scanner scanUpToString:@" --> " intoString:&startString];
+			NSScanner *aScanner = [NSScanner scannerWithString:startString];
+			
+			NSTimeInterval h =  0.0;
+			NSTimeInterval m =  0.0;
+			NSTimeInterval s =  0.0;
+			NSTimeInterval c =  0.0;
+			
+			[aScanner scanDouble:&h];
+			[aScanner scanString:@":" intoString:NULL];
+			[aScanner scanDouble:&m];
+			[aScanner scanString:@":" intoString:NULL];
+			
+			[aScanner scanDouble:&s];
+			[aScanner scanString:@"," intoString:NULL];
+			[aScanner scanDouble:&c];
+			double fromTime = (h * 3600.0) + (m * 60.0) + s + (c / 1000.0);
+			
+			
+			(void) [scanner scanString:@"-->" intoString:NULL];
+			
+			NSString *endString;
+			(void) [scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&endString];
+			aScanner = [NSScanner scannerWithString:endString];
+			[aScanner scanDouble:&h];
+			[aScanner scanString:@":" intoString:NULL];
+			[aScanner scanDouble:&m];
+			[aScanner scanString:@":" intoString:NULL];
+			
+			[aScanner scanDouble:&s];
+			[aScanner scanString:@"," intoString:NULL];
+			[aScanner scanDouble:&c];
+			double endTime = (h * 3600.0) + (m * 60.0) + s + (c / 1000.0);
+			
+			NSString *textString;
+			// BEGIN EDIT
+			(void) [scanner scanUpToString:@"\n\n" intoString:&textString];
+			
+			textString = [textString stringByReplacingOccurrencesOfString:@"\r\n" withString:@" "];
+			textString = [textString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+			// END EDIT
+			
+			NSMutableDictionary *dictionary = [NSMutableDictionary new];
+			[dictionary setObject:[NSNumber numberWithDouble:fromTime] forKey:@"from"];
+			[dictionary setObject:[NSNumber numberWithDouble:endTime] forKey:@"to"];
+			[dictionary setObject:textString forKey:@"text"];
+			
+			
+			
+			[_parsedSrt setObject:dictionary forKey:indexString];
+		}
+	}
 }
 
 #pragma mark 截图并保存到相册
@@ -877,14 +843,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 	self.videoControl.pvExamView.hidden = NO;
 }
 
-- (void)trackBuffer{
-	CGFloat buffer = (CGFloat)self.playableDuration/self.duration;
-	if (!isnan(buffer)) {
-		//        self.videoControl.progressView.progress = buffer;
-		self.videoControl.slider.loadValue = buffer;
-	}
-}
-
 - (void)setTimeLabelValues:(double)currentTime totalTime:(double)totalTime {
 	self.videoControl.timeLabel.text = [self getTimeLabelValues:currentTime totalTime:totalTime];
 }
@@ -901,6 +859,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 	return [NSString stringWithFormat:@"%@/%@", timeElapsedString, timeRmainingString];
 }
 
+#pragma mark 定时器
 - (void)startDurationTimer{
 	self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
 	[[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSDefaultRunLoopMode];
@@ -911,7 +870,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 }
 
 - (void)starBufferTimer {
-	
 	// 确保在同一对象下只被创建一次，否则可能造成内存泄漏的问题(其他如startDurationTimer方法中可参考修改，介于可能影响其他代码的可能性先不做修改)
 	if (!_bufferTimer) {
 		_bufferTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(trackBuffer) userInfo:nil repeats:YES];
@@ -923,15 +881,56 @@ typedef NS_ENUM(NSInteger, panHandler){
 	[self.bufferTimer invalidate];
 }
 
+#pragma mark 定时器事件
+- (void)monitorVideoPlayback{
+	if (_isSeeking) true;
+	if (_isSwitching) {     // 正在切换码率，return出去
+		return;
+	}
+	
+	double currentTime = floor(self.currentPlaybackTime);
+	self.currentTime = currentTime;
+	double totalTime = floor(self.duration);
+	[self setTimeLabelValues:currentTime totalTime:totalTime];
+	self.videoControl.slider.progressValue = ceil(currentTime);
+	
+	[self searchSubtitles];
+	if (self.danmuEnabled) {
+		[_danmuManager rollDanmu:currentTime];
+	}
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	
+	if(self.enableExam){
+		PvExam *examShouldShow;
+		for(PvExam *exam in _videoExams){
+			if (exam.seconds < currentTime && ![[userDefaults stringForKey:[NSString stringWithFormat:@"exam_%@", exam.examId]] isEqualToString:@"Y"]) {
+				//NSLog(@"%sYYY", __FUNCTION__);
+				examShouldShow = exam;
+				break;
+			}
+		}
+		if (examShouldShow) {
+			[self pause];
+			[self showExam:examShouldShow];
+		}
+	}
+}
+
+- (void)trackBuffer{
+	CGFloat buffer = (CGFloat)self.playableDuration/self.duration;
+	if (!isnan(buffer)) {
+		//        self.videoControl.progressView.progress = buffer;
+		self.videoControl.slider.loadValue = buffer;
+	}
+}
+
 - (void)fadeDismissControl{
 	[self.videoControl animateHide];
 }
 
 
 #pragma mark - QHDanmuSendViewDelegate
-- (NSString *)timeFormatted:(int)totalSeconds
-{
-	
+- (NSString *)timeFormatted:(int)totalSeconds{
 	int seconds = totalSeconds % 60;
 	int minutes = (totalSeconds / 60) % 60;
 	int hours = totalSeconds / 3600;
@@ -949,20 +948,11 @@ typedef NS_ENUM(NSInteger, panHandler){
 	//f = 1 画框焦点
 	[self.danmuManager insertDanmu:@{@"c":info, @"t":@"1", @"m":@"l",@"color":@"0xFFFFFF",@"f":@"1"}];
 	[self.danmuManager resume:currentTime];
-	
-	
 }
 
 - (void)closeSendDanmu:(PvDanmuSendView *)danmuSendV {
 	[super play];
 	[self.danmuManager resume:[super currentPlaybackTime]];
-}
-
-
-
-- (void)dealloc{
-	
-	NSLog(@"%s", __FUNCTION__);
 }
 
 @end
@@ -1087,8 +1077,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 				[self.view setTransform:CGAffineTransformIdentity];
 				[self.view setTransform:CGAffineTransformMakeRotation(M_PI_2)];
 			}
-			
-			
 		} completion:^(BOOL finished) {
 			self.isFullscreenMode = YES;
 			self.videoControl.fullScreenButton.hidden = YES;
