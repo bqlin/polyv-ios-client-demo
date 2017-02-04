@@ -149,7 +149,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 
 #pragma mark - dealloc & init
 - (void)dealloc{
-	NSLog(@"%s", __FUNCTION__);
+	PLVDebugLog(@"%s", __FUNCTION__)
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -337,7 +337,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 			double startTime = [autoContinueDict[self.vid] doubleValue];
 			if (startTime > 0) {
 				self.watchStartTime = startTime;
-				NSLog(@"start time = %f", self.watchStartTime);
+				//NSLog(@"start time = %f", self.watchStartTime);
 			}
 		}
 	}
@@ -420,11 +420,11 @@ typedef NS_ENUM(NSInteger, panHandler){
 	[self.videoControl.indicatorView stopAnimating];
 	
 	if (self.autoContinue) {
-		NSLog(@"当前时间 %f", self.currentTime);
+		//NSLog(@"当前时间 %f", self.currentTime);
 		NSMutableDictionary *autoContinueDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:USER_DICT_AUTOCONTINUE].mutableCopy;
 		if (!autoContinueDict) autoContinueDict = [NSMutableDictionary dictionary];
 		autoContinueDict[self.vid] = @(self.currentTime);
-		NSLog(@"auto dict = %@", autoContinueDict);
+		//NSLog(@"auto dict = %@", autoContinueDict);
 		[[NSUserDefaults standardUserDefaults] setObject:autoContinueDict forKey:USER_DICT_AUTOCONTINUE];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
@@ -804,7 +804,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 	if (!level) level = [self isExistedTheLocalVideo:self.vid];
 	NSString *sign = [NSString stringWithFormat:@"%@%d%dpolyvsnapshot", self.vid, level, currentTime];
 	NSString *urlStr = [NSString stringWithFormat:@"http://go.polyv.net/snapshot/videoimage.php?vid=%@&level=%d&second=%d&sign=%@", self.vid, level, currentTime, [PolyvUtil md5HexDigest:sign]];
-	NSLog(@"url = %@", urlStr);
+	//NSLog(@"url = %@", urlStr);
 	NSURL *url = [NSURL URLWithString:urlStr];
 	
 	[[[NSURLSession sharedSession] downloadTaskWithURL:url completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {

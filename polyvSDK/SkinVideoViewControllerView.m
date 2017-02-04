@@ -8,7 +8,7 @@
 #import "SkinVideoViewControllerView.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "SubTitleLabel.h"
-
+#import "PolyvSettings.h"
 
 static const CGFloat pVideoControlBarHeight = 50.0;
 static const CGFloat pVideoControlAnimationTimeinterval = 0.5;
@@ -588,7 +588,7 @@ static const CGFloat pVideoControlBarAutoFadeOutTimeinterval = 5.0;
 }
 
 - (void)dealloc{
-	NSLog(@"%s", __FUNCTION__);
+	PLVDebugLog(@"%s", __FUNCTION__);
 }
 
 @end
