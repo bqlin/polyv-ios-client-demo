@@ -32,7 +32,7 @@
 	return _videoPlayer;
 }
 
--(void)viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated {
 	// 主动调用 cancel 方法销毁播放器
     [self.videoPlayer cancel];    // cancel方法中调用了cancelObserver
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -61,8 +61,8 @@
 	//[self.videoPlayer setEnableDanmuDisplay:NO];      // 不显示弹幕按钮
 	//[self.videoPlayer setEnableRateDisplay:NO];       // 不显示播放速率按钮
 	
-	//UIImage*logo = [UIImage imageNamed:@"pvlogo.png"];
-	//[self.videoPlayer setLogo:logo location:PvLogoLocationTopLeft size:CGSizeMake(70,30) alpha:0.8]; // 设置logo
+	//UIImage *logo = [UIImage imageNamed:@"pvlogo.png"];
+	//[self.videoPlayer setLogo:logo location:PvLogoLocationTopLeft size:CGSizeMake(70, 30) alpha:0.8]; // 设置logo
 	
     // 开启片头播放
 	// self.videoPlayer.teaserEnable = YES;
@@ -143,7 +143,7 @@
 //    //      2.主动点击seek到某个位置，用setCurrentPlaybackTime:(播放中)
 //    [self.videoPlayer setCurrentPlaybackTime:30.0];
 //    
-//    //[self.videoPlayer play];   // 播放视频，如果设置setAutoplay为NO,须调用此方法
+//    //[self.videoPlayer play];   // 播放视频，如果设置setAutoplay为NO, 须调用此方法
 //}
 //
 //

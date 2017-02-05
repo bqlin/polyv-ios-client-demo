@@ -19,7 +19,7 @@
 @interface VideoListTableViewController (){
     
     NSMutableArray *_videolist;
-    Video*_video;
+    Video *_video;
     FMDBHelper *_fmdb;
 }
 @property (nonatomic, strong) SkinVideoViewController *videoPlayer;
@@ -31,7 +31,7 @@
 @implementation VideoListTableViewController
 
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
 	self.navigationController.navigationBarHidden = NO;
@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	PLVInfoLog(@"download dir: %@",[[PolyvSettings sharedInstance]getDownloadDir]);
+	PLVInfoLog(@"download dir: %@", [[PolyvSettings sharedInstance] getDownloadDir]);
 	
 	_videolist = [NSMutableArray array];
 	_fmdb = [FMDBHelper sharedInstance];
@@ -50,14 +50,14 @@
 	[self.tableView setDelegate:self];
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-	[request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://v.polyv.net/uc/services/rest?method=getNewList&readtoken=%@&pageNum=1&numPerPage=20",PolyvReadtoken]]];
+	[request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://v.polyv.net/uc/services/rest?method=getNewList&readtoken=%@&pageNum=1&numPerPage=20", PolyvReadtoken]]];
 	//[request setURL:[NSURL URLWithString:@"https://demo.polyv.net/data/video.js"]];
 	[request setHTTPMethod:@"GET"];
 	
 	NSURLSession *session = [NSURLSession sharedSession];
 	[[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 		if(data!=nil){
-			NSDictionary * jsondata = [NSJSONSerialization
+			NSDictionary *jsondata = [NSJSONSerialization
 									   JSONObjectWithData:data
 									   options:0
 									   error:&error];
@@ -66,8 +66,8 @@
 			if ([videos isKindOfClass:[NSNull class]]) {
 				NSLog(@"----- 该账号暂无视频");
 			} else {
-				for(int i=0;i<videos.count;i++){
-					NSDictionary*item = [videos objectAtIndex:i];
+				for(int i = 0;i < videos.count;i++){
+					NSDictionary *item = [videos objectAtIndex:i];
 					Video *video = [[Video alloc] init];
 					video.title = [item objectForKey:@"title"];
 					video.desc = [item objectForKey:@"context"];
@@ -106,7 +106,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"videoCellIdentifier"];
 
-    Video*video = [_videolist objectAtIndex:indexPath.row];
+    Video *video = [_videolist objectAtIndex:indexPath.row];
     
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:103];
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:video.piclink]] queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -130,17 +130,17 @@
     
     
     
-    UIButton * btn = (UIButton *)[cell viewWithTag:104];
+    UIButton *btn = (UIButton *)[cell viewWithTag:104];
     btn.tag = indexPath.row;
     
-    //NSLog(@"%d - %@",indexPath.row,video.title);
+    //NSLog(@"%d - %@", indexPath.row, video.title);
     [btn addTarget:self action:@selector(downloadClick:) forControlEvents:UIControlEventTouchDown];
 
     
     return cell;
 }
 
--(void)downloadClick:(UIButton*)sender{
+- (void)downloadClick:(UIButton *)sender{
     CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
     
@@ -166,7 +166,7 @@
                                         message:@"您要下载哪个清晰度的视频?"
                                        delegate:self
                               cancelButtonTitle:@"取消"
-                              otherButtonTitles:@"流畅", @"高清", @"超清",nil] show];
+                              otherButtonTitles:@"流畅", @"高清", @"超清", nil] show];
             break;
     }
 }
@@ -175,17 +175,17 @@
     if(buttonIndex == 0){
     }else if(buttonIndex == 1){
         _video.level = 1;
-        _video.filesize = [[_video.allfilesize objectAtIndex:0]longLongValue];
+        _video.filesize = [[_video.allfilesize objectAtIndex:0] longLongValue];
         [_fmdb addDownloadVideo:_video];
         
     }else if(buttonIndex == 2){
         _video.level = 2;
-        _video.filesize = [[_video.allfilesize objectAtIndex:1]longLongValue];
+        _video.filesize = [[_video.allfilesize objectAtIndex:1] longLongValue];
 
         [_fmdb addDownloadVideo:_video];
     }else{
         _video.level = 3;
-        _video.filesize = [[_video.allfilesize objectAtIndex:2]longLongValue];
+        _video.filesize = [[_video.allfilesize objectAtIndex:2] longLongValue];
         [_fmdb addDownloadVideo:_video];
     }
 }
