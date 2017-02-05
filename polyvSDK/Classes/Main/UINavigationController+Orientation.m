@@ -22,4 +22,8 @@
 	return self.topViewController.preferredInterfaceOrientationForPresentation;
 }
 
+- (BOOL)prefersStatusBarHidden{
+	return self.topViewController.prefersStatusBarHidden;
+}
+
 @end

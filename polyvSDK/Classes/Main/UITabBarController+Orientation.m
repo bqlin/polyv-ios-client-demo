@@ -18,4 +18,8 @@
 	return self.selectedViewController.supportedInterfaceOrientations;
 }
 
+- (BOOL)prefersStatusBarHidden{
+	return self.selectedViewController.prefersStatusBarHidden;
+}
+
 @end

@@ -13,5 +13,6 @@
 - (BOOL)shouldAutorotate;
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations;
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation;
+- (BOOL)prefersStatusBarHidden;
 
 @end

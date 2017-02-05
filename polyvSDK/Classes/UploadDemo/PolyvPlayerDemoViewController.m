@@ -190,6 +190,10 @@
     //_progressLabel.text=@"aaa";
 }
 
+- (BOOL)prefersStatusBarHidden{
+	return YES;
+}
+
 #pragma mark - 页面旋转
 - (BOOL)shouldAutorotate {
 	return NO;
