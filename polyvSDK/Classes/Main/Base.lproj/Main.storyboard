@@ -53,6 +53,7 @@
                                         <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ISo-ef-4Hh">
                                             <rect key="frame" x="254" y="62" width="46" height="30"/>
                                             <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="cx3-BN-q1M"/>
                                                 <constraint firstAttribute="width" constant="46" id="luv-IN-s3j"/>
                                             </constraints>
                                             <state key="normal" title="下载">
@@ -147,10 +148,10 @@
             </objects>
             <point key="canvasLocation" x="-512" y="-482"/>
         </scene>
-        <!--Root View View Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="ctK-LQ-XsA">
             <objects>
-                <tabBarController id="Ykz-V1-jlL" customClass="RootViewViewController" sceneMemberID="viewController">
+                <tabBarController id="Ykz-V1-jlL" sceneMemberID="viewController">
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="BaW-50-xnK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -269,18 +270,23 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oLL-mC-KCa">
                                 <rect key="frame" x="66" y="169" width="188" height="39"/>
                                 <subviews>
-                                    <progressView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7eN-WU-vKS">
-                                        <rect key="frame" x="-66" y="-169" width="0.0" height="2"/>
-                                    </progressView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Status Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaP-Xc-FRO">
-                                        <rect key="frame" x="-66" y="-169" width="65" height="12"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Status Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaP-Xc-FRO">
+                                        <rect key="frame" x="62" y="25" width="65" height="12"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <progressView opaque="NO" contentMode="scaleToFill" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7eN-WU-vKS">
+                                        <rect key="frame" x="8" y="19" width="172" height="2"/>
+                                    </progressView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="7eN-WU-vKS" firstAttribute="centerY" secondItem="oLL-mC-KCa" secondAttribute="centerY" id="6oX-bF-vEJ"/>
+                                    <constraint firstItem="gaP-Xc-FRO" firstAttribute="centerX" secondItem="oLL-mC-KCa" secondAttribute="centerX" id="7A2-Im-ZQu"/>
+                                    <constraint firstItem="7eN-WU-vKS" firstAttribute="centerX" secondItem="oLL-mC-KCa" secondAttribute="centerX" id="CcB-u5-7fD"/>
+                                    <constraint firstItem="gaP-Xc-FRO" firstAttribute="top" secondItem="7eN-WU-vKS" secondAttribute="bottom" constant="4" id="FRH-GX-hZ4"/>
+                                    <constraint firstAttribute="trailing" secondItem="7eN-WU-vKS" secondAttribute="trailing" constant="8" id="Gga-jv-dpF"/>
                                     <constraint firstAttribute="height" constant="39" id="deO-M2-gVO"/>
                                 </constraints>
                             </view>
@@ -315,7 +321,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2nw-x9-dbB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-33" y="-55"/>
+            <point key="canvasLocation" x="-33" y="-57"/>
         </scene>
         <!--Video List Table View Controller-->
         <scene sceneID="zb6-1C-WmC">

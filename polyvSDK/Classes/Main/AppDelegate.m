@@ -28,7 +28,7 @@
     [[PolyvSettings sharedInstance] setDownloadDir:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/plvideo/a"]];
     [[PolyvSettings sharedInstance] initVideoSettings:[config objectAtIndex:1] Readtoken:[config objectAtIndex:2] Writetoken:[config objectAtIndex:3] UserId:[config objectAtIndex:0]];
 //	[[PolyvSettings sharedInstance] setLogLevel:PLVLogLevelDebug];
-//	[PolyvSettings.sharedInstance setLogLevel:PLVLogLevelAll];
+	[PolyvSettings.sharedInstance setLogLevel:PLVLogLevelAll];
 	
     // 配置sdk加密串示例(使用网络接口)
     /*

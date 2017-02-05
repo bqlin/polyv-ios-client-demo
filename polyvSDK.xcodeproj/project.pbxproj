@@ -7,36 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CB0F44E51C59E13700A6B13C /* DetailViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0F44E41C59E13700A6B13C /* DetailViewController2.m */; };
 		CB231BF01BDDD8B400EC18BF /* video.png in Resources */ = {isa = PBXBuildFile; fileRef = CB231BEF1BDDD8B400EC18BF /* video.png */; };
 		CB6569211C561B8B00AC2EC8 /* pvlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = CB6569201C561B8B00AC2EC8 /* pvlogo.png */; };
 		CB79F81C196E7E0700A1B817 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB79F81B196E7E0700A1B817 /* MediaPlayer.framework */; };
-		CB79F827196E88C300A1B817 /* PolyvPlayerDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79F825196E88C300A1B817 /* PolyvPlayerDemoViewController.m */; };
-		CB8E99871B80C3CC00CDD71A /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8E99861B80C3CC00CDD71A /* Video.m */; };
-		CB8E998A1B80C4EA00CDD71A /* VideoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8E99891B80C4EA00CDD71A /* VideoListTableViewController.m */; };
 		CB8E99D31B81CA4D00CDD71A /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8E99D21B81CA4D00CDD71A /* libsqlite3.0.dylib */; };
-		CB8E99D61B81DB8200CDD71A /* DownloadListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8E99D51B81DB8200CDD71A /* DownloadListTableViewController.m */; };
-		CB8E99DF1B82E0C800CDD71A /* SkinVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8E99DC1B82E0C800CDD71A /* SkinVideoViewController.m */; };
-		CB8E99E01B82E0C800CDD71A /* SkinVideoViewControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB8E99DE1B82E0C800CDD71A /* SkinVideoViewControllerView.m */; };
-		CB9BA7861BD9D0DE00352498 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BA7851BD9D0DE00352498 /* DetailViewController.m */; };
 		CBA3711C196E6549008E95ED /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA3711B196E6549008E95ED /* Foundation.framework */; };
 		CBA3711E196E6549008E95ED /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA3711D196E6549008E95ED /* CoreGraphics.framework */; };
 		CBA37120196E6549008E95ED /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA3711F196E6549008E95ED /* UIKit.framework */; };
 		CBA37126196E6549008E95ED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CBA37124196E6549008E95ED /* InfoPlist.strings */; };
 		CBA37128196E6549008E95ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA37127196E6549008E95ED /* main.m */; };
-		CBA3712C196E6549008E95ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA3712B196E6549008E95ED /* AppDelegate.m */; };
-		CBA3712F196E6549008E95ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBA3712D196E6549008E95ED /* Main.storyboard */; };
-		CBA37132196E6549008E95ED /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA37131196E6549008E95ED /* ViewController.m */; };
 		CBA37134196E6549008E95ED /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBA37133196E6549008E95ED /* Images.xcassets */; };
 		CBA3713B196E6549008E95ED /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA3713A196E6549008E95ED /* XCTest.framework */; };
 		CBA3713C196E6549008E95ED /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA3711B196E6549008E95ED /* Foundation.framework */; };
 		CBA3713D196E6549008E95ED /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA3711F196E6549008E95ED /* UIKit.framework */; };
 		CBA37145196E6549008E95ED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CBA37143196E6549008E95ED /* InfoPlist.strings */; };
 		CBA37147196E6549008E95ED /* polyvSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CBA37146196E6549008E95ED /* polyvSDKTests.m */; };
-		CBBFEAAD199C9BC100D15255 /* UploadDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBBFEAAC199C9BC100D15255 /* UploadDemoViewController.m */; };
 		CBC2333B1AEA326100B0228E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC2333A1AEA326100B0228E /* libz.dylib */; };
 		CBF35D341B32B1E100E97C45 /* video-play.png in Resources */ = {isa = PBXBuildFile; fileRef = CBF35D331B32B1E100E97C45 /* video-play.png */; };
-		E5008F371CC09CEC006A42C6 /* RootViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5008F361CC09CEC006A42C6 /* RootViewViewController.m */; };
 		E50548DC1E0B677600719FFD /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = E50548DB1E0B677600719FFD /* Foundation+Log.m */; };
 		E57D4B5A1DF1548000E21BE4 /* libpolyvSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E57D4B591DF1548000E21BE4 /* libpolyvSDK.a */; };
 		E5D211221CD8B72800F848CA /* checkbox_checked.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D211061CD8B72800F848CA /* checkbox_checked.png */; };
@@ -67,15 +54,31 @@
 		E5D2113B1CD8B72800F848CA /* radio_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D2111F1CD8B72800F848CA /* radio_checked@2x.png */; };
 		E5D2113C1CD8B72800F848CA /* radio_unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D211201CD8B72800F848CA /* radio_unchecked.png */; };
 		E5D2113D1CD8B72800F848CA /* radio_unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D211211CD8B72800F848CA /* radio_unchecked@2x.png */; };
-		E5E480A81E330ED600B848B6 /* PLVIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E480A31E330ED600B848B6 /* PLVIndicator.m */; };
-		E5E480A91E330ED600B848B6 /* PLVSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E480A51E330ED600B848B6 /* PLVSlider.m */; };
-		E5E480AA1E330ED600B848B6 /* SubTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E480A71E330ED600B848B6 /* SubTitleLabel.m */; };
-		E5E480BA1E33123900B848B6 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E480AE1E33123900B848B6 /* FMDatabase.m */; };
-		E5E480BB1E33123900B848B6 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E480B01E33123900B848B6 /* FMDatabaseAdditions.m */; };
-		E5E480BC1E33123900B848B6 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E480B21E33123900B848B6 /* FMDatabasePool.m */; };
-		E5E480BD1E33123900B848B6 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E480B41E33123900B848B6 /* FMDatabaseQueue.m */; };
-		E5E480BE1E33123900B848B6 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E480B71E33123900B848B6 /* FMResultSet.m */; };
-		E5E480BF1E33123900B848B6 /* FMDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E480B91E33123900B848B6 /* FMDBHelper.m */; };
+		E5D345EE1E46C0C100A8CBE9 /* DownloadListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345A71E46C0C100A8CBE9 /* DownloadListTableViewController.m */; };
+		E5D345EF1E46C0C100A8CBE9 /* libpolyvSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5D345BD1E46C0C100A8CBE9 /* libpolyvSDK.a */; };
+		E5D345F01E46C0C100A8CBE9 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = E5D345BE1E46C0C100A8CBE9 /* README.md */; };
+		E5D345F11E46C0C100A8CBE9 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345C31E46C0C100A8CBE9 /* FMDatabase.m */; };
+		E5D345F21E46C0C100A8CBE9 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345C51E46C0C100A8CBE9 /* FMDatabaseAdditions.m */; };
+		E5D345F31E46C0C100A8CBE9 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345C71E46C0C100A8CBE9 /* FMDatabasePool.m */; };
+		E5D345F41E46C0C100A8CBE9 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345C91E46C0C100A8CBE9 /* FMDatabaseQueue.m */; };
+		E5D345F51E46C0C100A8CBE9 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345CC1E46C0C100A8CBE9 /* FMResultSet.m */; };
+		E5D345F61E46C0C100A8CBE9 /* FMDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345CE1E46C0C100A8CBE9 /* FMDBHelper.m */; };
+		E5D345F71E46C0C100A8CBE9 /* PLVIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345D11E46C0C100A8CBE9 /* PLVIndicator.m */; };
+		E5D345F81E46C0C100A8CBE9 /* PLVSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345D31E46C0C100A8CBE9 /* PLVSlider.m */; };
+		E5D345F91E46C0C100A8CBE9 /* SubTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345D51E46C0C100A8CBE9 /* SubTitleLabel.m */; };
+		E5D345FD1E46C0C100A8CBE9 /* SkinVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345DF1E46C0C100A8CBE9 /* SkinVideoViewController.m */; };
+		E5D345FE1E46C0C100A8CBE9 /* SkinVideoViewControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345E11E46C0C100A8CBE9 /* SkinVideoViewControllerView.m */; };
+		E5D345FF1E46C0C100A8CBE9 /* PolyvPlayerDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345E41E46C0C100A8CBE9 /* PolyvPlayerDemoViewController.m */; };
+		E5D346001E46C0C100A8CBE9 /* UploadDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345E61E46C0C100A8CBE9 /* UploadDemoViewController.m */; };
+		E5D346011E46C0C100A8CBE9 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345E91E46C0C100A8CBE9 /* DetailViewController.m */; };
+		E5D346021E46C0C100A8CBE9 /* DetailViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345EB1E46C0C100A8CBE9 /* DetailViewController2.m */; };
+		E5D346031E46C0C100A8CBE9 /* VideoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D345ED1E46C0C100A8CBE9 /* VideoListTableViewController.m */; };
+		E5D3460D1E46C17E00A8CBE9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D346061E46C17E00A8CBE9 /* AppDelegate.m */; };
+		E5D3460E1E46C17E00A8CBE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5D346071E46C17E00A8CBE9 /* Main.storyboard */; };
+		E5D3460F1E46C17E00A8CBE9 /* RootViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D3460A1E46C17E00A8CBE9 /* RootViewViewController.m */; };
+		E5D346101E46C17E00A8CBE9 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D3460C1E46C17E00A8CBE9 /* Video.m */; };
+		E5D346131E46C1B400A8CBE9 /* UITabBarController+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D346121E46C1B400A8CBE9 /* UITabBarController+Orientation.m */; };
+		E5D346161E46C1D100A8CBE9 /* UINavigationController+Orientation.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D346151E46C1D100A8CBE9 /* UINavigationController+Orientation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,30 +92,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CB0F44D81C5765CB00A6B13C /* PvExam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvExam.h; sourceTree = "<group>"; };
-		CB0F44E31C59E13700A6B13C /* DetailViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController2.h; sourceTree = "<group>"; };
-		CB0F44E41C59E13700A6B13C /* DetailViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController2.m; sourceTree = "<group>"; };
-		CB0F44EA1C5B38E800A6B13C /* PvCachable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvCachable.h; sourceTree = "<group>"; };
 		CB231BEF1BDDD8B400EC18BF /* video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video.png; sourceTree = "<group>"; };
-		CB6236C01C72C4D500A7B832 /* PvExamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvExamView.h; sourceTree = "<group>"; };
-		CB65691F1C50B07800AC2EC8 /* PvVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvVideo.h; sourceTree = "<group>"; };
 		CB6569201C561B8B00AC2EC8 /* pvlogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pvlogo.png; sourceTree = "<group>"; };
 		CB79F81B196E7E0700A1B817 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		CB79F824196E88C300A1B817 /* PolyvPlayerDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyvPlayerDemoViewController.h; sourceTree = "<group>"; };
-		CB79F825196E88C300A1B817 /* PolyvPlayerDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PolyvPlayerDemoViewController.m; sourceTree = "<group>"; };
-		CB8E99851B80C3CC00CDD71A /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
-		CB8E99861B80C3CC00CDD71A /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
-		CB8E99881B80C4EA00CDD71A /* VideoListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListTableViewController.h; sourceTree = "<group>"; };
-		CB8E99891B80C4EA00CDD71A /* VideoListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListTableViewController.m; sourceTree = "<group>"; };
 		CB8E99D21B81CA4D00CDD71A /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
-		CB8E99D41B81DB8200CDD71A /* DownloadListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadListTableViewController.h; sourceTree = "<group>"; };
-		CB8E99D51B81DB8200CDD71A /* DownloadListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadListTableViewController.m; sourceTree = "<group>"; };
-		CB8E99DB1B82E0C800CDD71A /* SkinVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkinVideoViewController.h; sourceTree = "<group>"; };
-		CB8E99DC1B82E0C800CDD71A /* SkinVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkinVideoViewController.m; sourceTree = "<group>"; };
-		CB8E99DD1B82E0C800CDD71A /* SkinVideoViewControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkinVideoViewControllerView.h; sourceTree = "<group>"; };
-		CB8E99DE1B82E0C800CDD71A /* SkinVideoViewControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkinVideoViewControllerView.m; sourceTree = "<group>"; };
-		CB9BA7841BD9D0DE00352498 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		CB9BA7851BD9D0DE00352498 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		CBA37118196E6549008E95ED /* polyvSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = polyvSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA3711B196E6549008E95ED /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CBA3711D196E6549008E95ED /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -121,36 +104,14 @@
 		CBA37125196E6549008E95ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CBA37127196E6549008E95ED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CBA37129196E6549008E95ED /* polyvSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "polyvSDK-Prefix.pch"; sourceTree = "<group>"; };
-		CBA3712A196E6549008E95ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		CBA3712B196E6549008E95ED /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CBA3712E196E6549008E95ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		CBA37130196E6549008E95ED /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CBA37131196E6549008E95ED /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CBA37133196E6549008E95ED /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CBA37139196E6549008E95ED /* polyvSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = polyvSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBA3713A196E6549008E95ED /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		CBA37142196E6549008E95ED /* polyvSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "polyvSDKTests-Info.plist"; sourceTree = "<group>"; };
 		CBA37144196E6549008E95ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CBA37146196E6549008E95ED /* polyvSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = polyvSDKTests.m; sourceTree = "<group>"; };
-		CBA5D70D1C0BD47E00781EA5 /* PLVAssetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVAssetData.h; sourceTree = "<group>"; };
-		CBA5D70E1C0BD47E00781EA5 /* PLVData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVData.h; sourceTree = "<group>"; };
-		CBA5D70F1C0BD47E00781EA5 /* PLVKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVKit.h; sourceTree = "<group>"; };
-		CBA5D7101C0BD47E00781EA5 /* PLVMoviePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVMoviePlayerController.h; sourceTree = "<group>"; };
-		CBA5D7111C0BD47E00781EA5 /* PLVResumableUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVResumableUpload.h; sourceTree = "<group>"; };
-		CBA5D7121C0BD47E00781EA5 /* PolyvSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyvSettings.h; sourceTree = "<group>"; };
-		CBA5D7131C0BD47E00781EA5 /* PolyvUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyvUtil.h; sourceTree = "<group>"; };
-		CBA5D7141C0BD47E00781EA5 /* PVDanmuManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVDanmuManager.h; sourceTree = "<group>"; };
-		CBA5D7151C0BD47E00781EA5 /* PvDanmuOperateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvDanmuOperateView.h; sourceTree = "<group>"; };
-		CBA5D7161C0BD47E00781EA5 /* PvDanmuSendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvDanmuSendView.h; sourceTree = "<group>"; };
-		CBA5D71A1C0C1FC200781EA5 /* PvUrlSessionDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvUrlSessionDownload.h; sourceTree = "<group>"; };
-		CBA5D71B1C0C1FC200781EA5 /* PvUrlSessionDownloadDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvUrlSessionDownloadDelegate.h; sourceTree = "<group>"; };
-		CBAE508A1C1EBD2D00D8B520 /* PvReportManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvReportManager.h; sourceTree = "<group>"; };
-		CBBFEAAB199C9BC100D15255 /* UploadDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadDemoViewController.h; sourceTree = "<group>"; };
-		CBBFEAAC199C9BC100D15255 /* UploadDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadDemoViewController.m; sourceTree = "<group>"; };
 		CBC2333A1AEA326100B0228E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		CBF35D331B32B1E100E97C45 /* video-play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video-play.png"; sourceTree = "<group>"; };
-		E5008F351CC09CEC006A42C6 /* RootViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewViewController.h; sourceTree = "<group>"; };
-		E5008F361CC09CEC006A42C6 /* RootViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewViewController.m; sourceTree = "<group>"; };
 		E50548DB1E0B677600719FFD /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Foundation+Log.m"; path = "../../../../../../NUT/libs/BqCategorys/Foundation+Log.m"; sourceTree = "<group>"; };
 		E57D4B591DF1548000E21BE4 /* libpolyvSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpolyvSDK.a; path = "../../../../../Library/Developer/Xcode/DerivedData/PolyvSDKDemo4Test-fasvqprpwioobjazmscymxpccxws/Build/Products/Debug-iphoneos/libpolyvSDK.a"; sourceTree = "<group>"; };
 		E5D211061CD8B72800F848CA /* checkbox_checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_checked.png; sourceTree = "<group>"; };
@@ -181,25 +142,73 @@
 		E5D2111F1CD8B72800F848CA /* radio_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "radio_checked@2x.png"; sourceTree = "<group>"; };
 		E5D211201CD8B72800F848CA /* radio_unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radio_unchecked.png; sourceTree = "<group>"; };
 		E5D211211CD8B72800F848CA /* radio_unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "radio_unchecked@2x.png"; sourceTree = "<group>"; };
-		E5E480A21E330ED600B848B6 /* PLVIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVIndicator.h; sourceTree = "<group>"; };
-		E5E480A31E330ED600B848B6 /* PLVIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLVIndicator.m; sourceTree = "<group>"; };
-		E5E480A41E330ED600B848B6 /* PLVSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVSlider.h; sourceTree = "<group>"; };
-		E5E480A51E330ED600B848B6 /* PLVSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLVSlider.m; sourceTree = "<group>"; };
-		E5E480A61E330ED600B848B6 /* SubTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubTitleLabel.h; sourceTree = "<group>"; };
-		E5E480A71E330ED600B848B6 /* SubTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubTitleLabel.m; sourceTree = "<group>"; };
-		E5E480AD1E33123900B848B6 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
-		E5E480AE1E33123900B848B6 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
-		E5E480AF1E33123900B848B6 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		E5E480B01E33123900B848B6 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		E5E480B11E33123900B848B6 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
-		E5E480B21E33123900B848B6 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
-		E5E480B31E33123900B848B6 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
-		E5E480B41E33123900B848B6 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
-		E5E480B51E33123900B848B6 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
-		E5E480B61E33123900B848B6 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
-		E5E480B71E33123900B848B6 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
-		E5E480B81E33123900B848B6 /* FMDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDBHelper.h; sourceTree = "<group>"; };
-		E5E480B91E33123900B848B6 /* FMDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBHelper.m; sourceTree = "<group>"; };
+		E5D345A61E46C0C100A8CBE9 /* DownloadListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadListTableViewController.h; sourceTree = "<group>"; };
+		E5D345A71E46C0C100A8CBE9 /* DownloadListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadListTableViewController.m; sourceTree = "<group>"; };
+		E5D345AA1E46C0C100A8CBE9 /* PLVAssetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVAssetData.h; sourceTree = "<group>"; };
+		E5D345AB1E46C0C100A8CBE9 /* PLVData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVData.h; sourceTree = "<group>"; };
+		E5D345AC1E46C0C100A8CBE9 /* PLVKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVKit.h; sourceTree = "<group>"; };
+		E5D345AD1E46C0C100A8CBE9 /* PLVMoviePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVMoviePlayerController.h; sourceTree = "<group>"; };
+		E5D345AE1E46C0C100A8CBE9 /* PLVResumableUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVResumableUpload.h; sourceTree = "<group>"; };
+		E5D345AF1E46C0C100A8CBE9 /* PolyvSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyvSettings.h; sourceTree = "<group>"; };
+		E5D345B01E46C0C100A8CBE9 /* PolyvUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyvUtil.h; sourceTree = "<group>"; };
+		E5D345B11E46C0C100A8CBE9 /* PvCachable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvCachable.h; sourceTree = "<group>"; };
+		E5D345B21E46C0C100A8CBE9 /* PvCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvCheckBox.h; sourceTree = "<group>"; };
+		E5D345B31E46C0C100A8CBE9 /* PVDanmuManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVDanmuManager.h; sourceTree = "<group>"; };
+		E5D345B41E46C0C100A8CBE9 /* PvDanmuOperateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvDanmuOperateView.h; sourceTree = "<group>"; };
+		E5D345B51E46C0C100A8CBE9 /* PvDanmuSendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvDanmuSendView.h; sourceTree = "<group>"; };
+		E5D345B61E46C0C100A8CBE9 /* PvExam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvExam.h; sourceTree = "<group>"; };
+		E5D345B71E46C0C100A8CBE9 /* PvExamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvExamView.h; sourceTree = "<group>"; };
+		E5D345B81E46C0C100A8CBE9 /* PvRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvRadioButton.h; sourceTree = "<group>"; };
+		E5D345B91E46C0C100A8CBE9 /* PvReportManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvReportManager.h; sourceTree = "<group>"; };
+		E5D345BA1E46C0C100A8CBE9 /* PvUrlSessionDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvUrlSessionDownload.h; sourceTree = "<group>"; };
+		E5D345BB1E46C0C100A8CBE9 /* PvUrlSessionDownloadDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvUrlSessionDownloadDelegate.h; sourceTree = "<group>"; };
+		E5D345BC1E46C0C100A8CBE9 /* PvVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvVideo.h; sourceTree = "<group>"; };
+		E5D345BD1E46C0C100A8CBE9 /* libpolyvSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpolyvSDK.a; sourceTree = "<group>"; };
+		E5D345BE1E46C0C100A8CBE9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E5D345C21E46C0C100A8CBE9 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		E5D345C31E46C0C100A8CBE9 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		E5D345C41E46C0C100A8CBE9 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		E5D345C51E46C0C100A8CBE9 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		E5D345C61E46C0C100A8CBE9 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		E5D345C71E46C0C100A8CBE9 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		E5D345C81E46C0C100A8CBE9 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		E5D345C91E46C0C100A8CBE9 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		E5D345CA1E46C0C100A8CBE9 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		E5D345CB1E46C0C100A8CBE9 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		E5D345CC1E46C0C100A8CBE9 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		E5D345CD1E46C0C100A8CBE9 /* FMDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDBHelper.h; sourceTree = "<group>"; };
+		E5D345CE1E46C0C100A8CBE9 /* FMDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBHelper.m; sourceTree = "<group>"; };
+		E5D345D01E46C0C100A8CBE9 /* PLVIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVIndicator.h; sourceTree = "<group>"; };
+		E5D345D11E46C0C100A8CBE9 /* PLVIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLVIndicator.m; sourceTree = "<group>"; };
+		E5D345D21E46C0C100A8CBE9 /* PLVSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLVSlider.h; sourceTree = "<group>"; };
+		E5D345D31E46C0C100A8CBE9 /* PLVSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLVSlider.m; sourceTree = "<group>"; };
+		E5D345D41E46C0C100A8CBE9 /* SubTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubTitleLabel.h; sourceTree = "<group>"; };
+		E5D345D51E46C0C100A8CBE9 /* SubTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubTitleLabel.m; sourceTree = "<group>"; };
+		E5D345DE1E46C0C100A8CBE9 /* SkinVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkinVideoViewController.h; sourceTree = "<group>"; };
+		E5D345DF1E46C0C100A8CBE9 /* SkinVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkinVideoViewController.m; sourceTree = "<group>"; };
+		E5D345E01E46C0C100A8CBE9 /* SkinVideoViewControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkinVideoViewControllerView.h; sourceTree = "<group>"; };
+		E5D345E11E46C0C100A8CBE9 /* SkinVideoViewControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkinVideoViewControllerView.m; sourceTree = "<group>"; };
+		E5D345E31E46C0C100A8CBE9 /* PolyvPlayerDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolyvPlayerDemoViewController.h; sourceTree = "<group>"; };
+		E5D345E41E46C0C100A8CBE9 /* PolyvPlayerDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PolyvPlayerDemoViewController.m; sourceTree = "<group>"; };
+		E5D345E51E46C0C100A8CBE9 /* UploadDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadDemoViewController.h; sourceTree = "<group>"; };
+		E5D345E61E46C0C100A8CBE9 /* UploadDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadDemoViewController.m; sourceTree = "<group>"; };
+		E5D345E81E46C0C100A8CBE9 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		E5D345E91E46C0C100A8CBE9 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		E5D345EA1E46C0C100A8CBE9 /* DetailViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController2.h; sourceTree = "<group>"; };
+		E5D345EB1E46C0C100A8CBE9 /* DetailViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController2.m; sourceTree = "<group>"; };
+		E5D345EC1E46C0C100A8CBE9 /* VideoListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListTableViewController.h; sourceTree = "<group>"; };
+		E5D345ED1E46C0C100A8CBE9 /* VideoListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListTableViewController.m; sourceTree = "<group>"; };
+		E5D346051E46C17E00A8CBE9 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E5D346061E46C17E00A8CBE9 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E5D346081E46C17E00A8CBE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E5D346091E46C17E00A8CBE9 /* RootViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewViewController.h; sourceTree = "<group>"; };
+		E5D3460A1E46C17E00A8CBE9 /* RootViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewViewController.m; sourceTree = "<group>"; };
+		E5D3460B1E46C17E00A8CBE9 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
+		E5D3460C1E46C17E00A8CBE9 /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
+		E5D346111E46C1B400A8CBE9 /* UITabBarController+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+Orientation.h"; sourceTree = "<group>"; };
+		E5D346121E46C1B400A8CBE9 /* UITabBarController+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+Orientation.m"; sourceTree = "<group>"; };
+		E5D346141E46C1D100A8CBE9 /* UINavigationController+Orientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Orientation.h"; sourceTree = "<group>"; };
+		E5D346151E46C1D100A8CBE9 /* UINavigationController+Orientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Orientation.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +223,7 @@
 				CBA3711E196E6549008E95ED /* CoreGraphics.framework in Frameworks */,
 				CBA37120196E6549008E95ED /* UIKit.framework in Frameworks */,
 				CBA3711C196E6549008E95ED /* Foundation.framework in Frameworks */,
+				E5D345EF1E46C0C100A8CBE9 /* libpolyvSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,35 +277,8 @@
 		CBA37121196E6549008E95ED /* polyvSDK */ = {
 			isa = PBXGroup;
 			children = (
-				E5E480AB1E33123900B848B6 /* Library */,
-				E5E480A11E330ED600B848B6 /* PLVControl */,
+				E5D345A41E46C0C100A8CBE9 /* Classes */,
 				E50548DB1E0B677600719FFD /* Foundation+Log.m */,
-				CBA5D70A1C0BD47E00781EA5 /* libpolyvSDK */,
-				CB8E99881B80C4EA00CDD71A /* VideoListTableViewController.h */,
-				CB8E99891B80C4EA00CDD71A /* VideoListTableViewController.m */,
-				E5008F351CC09CEC006A42C6 /* RootViewViewController.h */,
-				E5008F361CC09CEC006A42C6 /* RootViewViewController.m */,
-				CB9BA7841BD9D0DE00352498 /* DetailViewController.h */,
-				CB9BA7851BD9D0DE00352498 /* DetailViewController.m */,
-				CB0F44E31C59E13700A6B13C /* DetailViewController2.h */,
-				CB0F44E41C59E13700A6B13C /* DetailViewController2.m */,
-				CB8E99DB1B82E0C800CDD71A /* SkinVideoViewController.h */,
-				CB8E99DC1B82E0C800CDD71A /* SkinVideoViewController.m */,
-				CB8E99DD1B82E0C800CDD71A /* SkinVideoViewControllerView.h */,
-				CB8E99DE1B82E0C800CDD71A /* SkinVideoViewControllerView.m */,
-				CB8E99D41B81DB8200CDD71A /* DownloadListTableViewController.h */,
-				CB8E99D51B81DB8200CDD71A /* DownloadListTableViewController.m */,
-				CBBFEAAB199C9BC100D15255 /* UploadDemoViewController.h */,
-				CBBFEAAC199C9BC100D15255 /* UploadDemoViewController.m */,
-				CB79F824196E88C300A1B817 /* PolyvPlayerDemoViewController.h */,
-				CB79F825196E88C300A1B817 /* PolyvPlayerDemoViewController.m */,
-				CBA3712A196E6549008E95ED /* AppDelegate.h */,
-				CBA3712B196E6549008E95ED /* AppDelegate.m */,
-				CBA3712D196E6549008E95ED /* Main.storyboard */,
-				CBA37130196E6549008E95ED /* ViewController.h */,
-				CBA37131196E6549008E95ED /* ViewController.m */,
-				CB8E99851B80C3CC00CDD71A /* Video.h */,
-				CB8E99861B80C3CC00CDD71A /* Video.m */,
 				CBA37133196E6549008E95ED /* Images.xcassets */,
 				CBA37122196E6549008E95ED /* Supporting Files */,
 			);
@@ -335,38 +318,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		CBA5D70A1C0BD47E00781EA5 /* libpolyvSDK */ = {
-			isa = PBXGroup;
-			children = (
-				CBA5D70B1C0BD47E00781EA5 /* libpolyvSDK */,
-			);
-			path = libpolyvSDK;
-			sourceTree = "<group>";
-		};
-		CBA5D70B1C0BD47E00781EA5 /* libpolyvSDK */ = {
-			isa = PBXGroup;
-			children = (
-				CB6236C01C72C4D500A7B832 /* PvExamView.h */,
-				CB0F44EA1C5B38E800A6B13C /* PvCachable.h */,
-				CB0F44D81C5765CB00A6B13C /* PvExam.h */,
-				CB65691F1C50B07800AC2EC8 /* PvVideo.h */,
-				CBAE508A1C1EBD2D00D8B520 /* PvReportManager.h */,
-				CBA5D71A1C0C1FC200781EA5 /* PvUrlSessionDownload.h */,
-				CBA5D71B1C0C1FC200781EA5 /* PvUrlSessionDownloadDelegate.h */,
-				CBA5D70D1C0BD47E00781EA5 /* PLVAssetData.h */,
-				CBA5D70E1C0BD47E00781EA5 /* PLVData.h */,
-				CBA5D70F1C0BD47E00781EA5 /* PLVKit.h */,
-				CBA5D7101C0BD47E00781EA5 /* PLVMoviePlayerController.h */,
-				CBA5D7111C0BD47E00781EA5 /* PLVResumableUpload.h */,
-				CBA5D7121C0BD47E00781EA5 /* PolyvSettings.h */,
-				CBA5D7131C0BD47E00781EA5 /* PolyvUtil.h */,
-				CBA5D7141C0BD47E00781EA5 /* PVDanmuManager.h */,
-				CBA5D7151C0BD47E00781EA5 /* PvDanmuOperateView.h */,
-				CBA5D7161C0BD47E00781EA5 /* PvDanmuSendView.h */,
-			);
-			path = libpolyvSDK;
-			sourceTree = "<group>";
-		};
 		E5D211051CD8B72800F848CA /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -402,45 +353,166 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		E5E480A11E330ED600B848B6 /* PLVControl */ = {
+		E5D345A41E46C0C100A8CBE9 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E5E480A21E330ED600B848B6 /* PLVIndicator.h */,
-				E5E480A31E330ED600B848B6 /* PLVIndicator.m */,
-				E5E480A41E330ED600B848B6 /* PLVSlider.h */,
-				E5E480A51E330ED600B848B6 /* PLVSlider.m */,
-				E5E480A61E330ED600B848B6 /* SubTitleLabel.h */,
-				E5E480A71E330ED600B848B6 /* SubTitleLabel.m */,
+				E5D346041E46C17E00A8CBE9 /* Main */,
+				E5D345A81E46C0C100A8CBE9 /* libpolyvSDK */,
+				E5D345E71E46C0C100A8CBE9 /* VideoList */,
+				E5D345A51E46C0C100A8CBE9 /* DownloadList */,
+				E5D345BF1E46C0C100A8CBE9 /* Library */,
+				E5D345DD1E46C0C100A8CBE9 /* SkinPlayer */,
+				E5D345E21E46C0C100A8CBE9 /* UploadDemo */,
 			);
-			path = PLVControl;
+			path = Classes;
 			sourceTree = "<group>";
 		};
-		E5E480AB1E33123900B848B6 /* Library */ = {
+		E5D345A51E46C0C100A8CBE9 /* DownloadList */ = {
 			isa = PBXGroup;
 			children = (
-				E5E480AC1E33123900B848B6 /* fmdb */,
-				E5E480B81E33123900B848B6 /* FMDBHelper.h */,
-				E5E480B91E33123900B848B6 /* FMDBHelper.m */,
+				E5D345A61E46C0C100A8CBE9 /* DownloadListTableViewController.h */,
+				E5D345A71E46C0C100A8CBE9 /* DownloadListTableViewController.m */,
+			);
+			path = DownloadList;
+			sourceTree = "<group>";
+		};
+		E5D345A81E46C0C100A8CBE9 /* libpolyvSDK */ = {
+			isa = PBXGroup;
+			children = (
+				E5D345A91E46C0C100A8CBE9 /* libpolyvSDK */,
+				E5D345BD1E46C0C100A8CBE9 /* libpolyvSDK.a */,
+				E5D345BE1E46C0C100A8CBE9 /* README.md */,
+			);
+			path = libpolyvSDK;
+			sourceTree = "<group>";
+		};
+		E5D345A91E46C0C100A8CBE9 /* libpolyvSDK */ = {
+			isa = PBXGroup;
+			children = (
+				E5D345AA1E46C0C100A8CBE9 /* PLVAssetData.h */,
+				E5D345AB1E46C0C100A8CBE9 /* PLVData.h */,
+				E5D345AC1E46C0C100A8CBE9 /* PLVKit.h */,
+				E5D345AD1E46C0C100A8CBE9 /* PLVMoviePlayerController.h */,
+				E5D345AE1E46C0C100A8CBE9 /* PLVResumableUpload.h */,
+				E5D345AF1E46C0C100A8CBE9 /* PolyvSettings.h */,
+				E5D345B01E46C0C100A8CBE9 /* PolyvUtil.h */,
+				E5D345B11E46C0C100A8CBE9 /* PvCachable.h */,
+				E5D345B21E46C0C100A8CBE9 /* PvCheckBox.h */,
+				E5D345B31E46C0C100A8CBE9 /* PVDanmuManager.h */,
+				E5D345B41E46C0C100A8CBE9 /* PvDanmuOperateView.h */,
+				E5D345B51E46C0C100A8CBE9 /* PvDanmuSendView.h */,
+				E5D345B61E46C0C100A8CBE9 /* PvExam.h */,
+				E5D345B71E46C0C100A8CBE9 /* PvExamView.h */,
+				E5D345B81E46C0C100A8CBE9 /* PvRadioButton.h */,
+				E5D345B91E46C0C100A8CBE9 /* PvReportManager.h */,
+				E5D345BA1E46C0C100A8CBE9 /* PvUrlSessionDownload.h */,
+				E5D345BB1E46C0C100A8CBE9 /* PvUrlSessionDownloadDelegate.h */,
+				E5D345BC1E46C0C100A8CBE9 /* PvVideo.h */,
+			);
+			path = libpolyvSDK;
+			sourceTree = "<group>";
+		};
+		E5D345BF1E46C0C100A8CBE9 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				E5D345C01E46C0C100A8CBE9 /* FMDB */,
+				E5D345CF1E46C0C100A8CBE9 /* PLVControl */,
 			);
 			path = Library;
 			sourceTree = "<group>";
 		};
-		E5E480AC1E33123900B848B6 /* fmdb */ = {
+		E5D345C01E46C0C100A8CBE9 /* FMDB */ = {
 			isa = PBXGroup;
 			children = (
-				E5E480AD1E33123900B848B6 /* FMDatabase.h */,
-				E5E480AE1E33123900B848B6 /* FMDatabase.m */,
-				E5E480AF1E33123900B848B6 /* FMDatabaseAdditions.h */,
-				E5E480B01E33123900B848B6 /* FMDatabaseAdditions.m */,
-				E5E480B11E33123900B848B6 /* FMDatabasePool.h */,
-				E5E480B21E33123900B848B6 /* FMDatabasePool.m */,
-				E5E480B31E33123900B848B6 /* FMDatabaseQueue.h */,
-				E5E480B41E33123900B848B6 /* FMDatabaseQueue.m */,
-				E5E480B51E33123900B848B6 /* FMDB.h */,
-				E5E480B61E33123900B848B6 /* FMResultSet.h */,
-				E5E480B71E33123900B848B6 /* FMResultSet.m */,
+				E5D345C11E46C0C100A8CBE9 /* FMDB */,
+				E5D345CD1E46C0C100A8CBE9 /* FMDBHelper.h */,
+				E5D345CE1E46C0C100A8CBE9 /* FMDBHelper.m */,
 			);
-			path = fmdb;
+			path = FMDB;
+			sourceTree = "<group>";
+		};
+		E5D345C11E46C0C100A8CBE9 /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				E5D345C21E46C0C100A8CBE9 /* FMDatabase.h */,
+				E5D345C31E46C0C100A8CBE9 /* FMDatabase.m */,
+				E5D345C41E46C0C100A8CBE9 /* FMDatabaseAdditions.h */,
+				E5D345C51E46C0C100A8CBE9 /* FMDatabaseAdditions.m */,
+				E5D345C61E46C0C100A8CBE9 /* FMDatabasePool.h */,
+				E5D345C71E46C0C100A8CBE9 /* FMDatabasePool.m */,
+				E5D345C81E46C0C100A8CBE9 /* FMDatabaseQueue.h */,
+				E5D345C91E46C0C100A8CBE9 /* FMDatabaseQueue.m */,
+				E5D345CA1E46C0C100A8CBE9 /* FMDB.h */,
+				E5D345CB1E46C0C100A8CBE9 /* FMResultSet.h */,
+				E5D345CC1E46C0C100A8CBE9 /* FMResultSet.m */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
+		E5D345CF1E46C0C100A8CBE9 /* PLVControl */ = {
+			isa = PBXGroup;
+			children = (
+				E5D345D01E46C0C100A8CBE9 /* PLVIndicator.h */,
+				E5D345D11E46C0C100A8CBE9 /* PLVIndicator.m */,
+				E5D345D21E46C0C100A8CBE9 /* PLVSlider.h */,
+				E5D345D31E46C0C100A8CBE9 /* PLVSlider.m */,
+				E5D345D41E46C0C100A8CBE9 /* SubTitleLabel.h */,
+				E5D345D51E46C0C100A8CBE9 /* SubTitleLabel.m */,
+			);
+			path = PLVControl;
+			sourceTree = "<group>";
+		};
+		E5D345DD1E46C0C100A8CBE9 /* SkinPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				E5D345DE1E46C0C100A8CBE9 /* SkinVideoViewController.h */,
+				E5D345DF1E46C0C100A8CBE9 /* SkinVideoViewController.m */,
+				E5D345E01E46C0C100A8CBE9 /* SkinVideoViewControllerView.h */,
+				E5D345E11E46C0C100A8CBE9 /* SkinVideoViewControllerView.m */,
+			);
+			path = SkinPlayer;
+			sourceTree = "<group>";
+		};
+		E5D345E21E46C0C100A8CBE9 /* UploadDemo */ = {
+			isa = PBXGroup;
+			children = (
+				E5D345E31E46C0C100A8CBE9 /* PolyvPlayerDemoViewController.h */,
+				E5D345E41E46C0C100A8CBE9 /* PolyvPlayerDemoViewController.m */,
+				E5D345E51E46C0C100A8CBE9 /* UploadDemoViewController.h */,
+				E5D345E61E46C0C100A8CBE9 /* UploadDemoViewController.m */,
+			);
+			path = UploadDemo;
+			sourceTree = "<group>";
+		};
+		E5D345E71E46C0C100A8CBE9 /* VideoList */ = {
+			isa = PBXGroup;
+			children = (
+				E5D345EC1E46C0C100A8CBE9 /* VideoListTableViewController.h */,
+				E5D345ED1E46C0C100A8CBE9 /* VideoListTableViewController.m */,
+				E5D345E81E46C0C100A8CBE9 /* DetailViewController.h */,
+				E5D345E91E46C0C100A8CBE9 /* DetailViewController.m */,
+				E5D345EA1E46C0C100A8CBE9 /* DetailViewController2.h */,
+				E5D345EB1E46C0C100A8CBE9 /* DetailViewController2.m */,
+			);
+			path = VideoList;
+			sourceTree = "<group>";
+		};
+		E5D346041E46C17E00A8CBE9 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				E5D346051E46C17E00A8CBE9 /* AppDelegate.h */,
+				E5D346061E46C17E00A8CBE9 /* AppDelegate.m */,
+				E5D346071E46C17E00A8CBE9 /* Main.storyboard */,
+				E5D346091E46C17E00A8CBE9 /* RootViewViewController.h */,
+				E5D3460A1E46C17E00A8CBE9 /* RootViewViewController.m */,
+				E5D346111E46C1B400A8CBE9 /* UITabBarController+Orientation.h */,
+				E5D346121E46C1B400A8CBE9 /* UITabBarController+Orientation.m */,
+				E5D346141E46C1D100A8CBE9 /* UINavigationController+Orientation.h */,
+				E5D346151E46C1D100A8CBE9 /* UINavigationController+Orientation.m */,
+				E5D3460B1E46C17E00A8CBE9 /* Video.h */,
+				E5D3460C1E46C17E00A8CBE9 /* Video.m */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -549,8 +621,8 @@
 				E5D211241CD8B72800F848CA /* checkbox_unchecked.png in Resources */,
 				E5D211291CD8B72800F848CA /* pl-video-player-backward@3x.png in Resources */,
 				E5D2112A1CD8B72800F848CA /* pl-video-player-close@2x.png in Resources */,
-				CBA3712F196E6549008E95ED /* Main.storyboard in Resources */,
 				CBF35D341B32B1E100E97C45 /* video-play.png in Resources */,
+				E5D3460E1E46C17E00A8CBE9 /* Main.storyboard in Resources */,
 				E5D211321CD8B72800F848CA /* pl-video-player-pause@3x.png in Resources */,
 				E5D211381CD8B72800F848CA /* pl-video-player-shrinkscreen@3x.png in Resources */,
 				CB231BF01BDDD8B400EC18BF /* video.png in Resources */,
@@ -579,29 +651,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB8E99E01B82E0C800CDD71A /* SkinVideoViewControllerView.m in Sources */,
-				CBA37132196E6549008E95ED /* ViewController.m in Sources */,
-				E5008F371CC09CEC006A42C6 /* RootViewViewController.m in Sources */,
-				E5E480A81E330ED600B848B6 /* PLVIndicator.m in Sources */,
-				CB8E998A1B80C4EA00CDD71A /* VideoListTableViewController.m in Sources */,
-				CB8E99DF1B82E0C800CDD71A /* SkinVideoViewController.m in Sources */,
-				CBA3712C196E6549008E95ED /* AppDelegate.m in Sources */,
-				E5E480A91E330ED600B848B6 /* PLVSlider.m in Sources */,
-				E5E480BC1E33123900B848B6 /* FMDatabasePool.m in Sources */,
-				E5E480BA1E33123900B848B6 /* FMDatabase.m in Sources */,
-				CB79F827196E88C300A1B817 /* PolyvPlayerDemoViewController.m in Sources */,
-				E5E480BF1E33123900B848B6 /* FMDBHelper.m in Sources */,
-				E5E480AA1E330ED600B848B6 /* SubTitleLabel.m in Sources */,
-				E5E480BD1E33123900B848B6 /* FMDatabaseQueue.m in Sources */,
-				E5E480BE1E33123900B848B6 /* FMResultSet.m in Sources */,
-				CB9BA7861BD9D0DE00352498 /* DetailViewController.m in Sources */,
-				CB8E99D61B81DB8200CDD71A /* DownloadListTableViewController.m in Sources */,
-				CB8E99871B80C3CC00CDD71A /* Video.m in Sources */,
-				E5E480BB1E33123900B848B6 /* FMDatabaseAdditions.m in Sources */,
-				CBBFEAAD199C9BC100D15255 /* UploadDemoViewController.m in Sources */,
-				CB0F44E51C59E13700A6B13C /* DetailViewController2.m in Sources */,
+				E5D346131E46C1B400A8CBE9 /* UITabBarController+Orientation.m in Sources */,
+				E5D346101E46C17E00A8CBE9 /* Video.m in Sources */,
+				E5D345FE1E46C0C100A8CBE9 /* SkinVideoViewControllerView.m in Sources */,
+				E5D3460F1E46C17E00A8CBE9 /* RootViewViewController.m in Sources */,
+				E5D345EE1E46C0C100A8CBE9 /* DownloadListTableViewController.m in Sources */,
+				E5D345F01E46C0C100A8CBE9 /* README.md in Sources */,
+				E5D345F11E46C0C100A8CBE9 /* FMDatabase.m in Sources */,
+				E5D345FD1E46C0C100A8CBE9 /* SkinVideoViewController.m in Sources */,
+				E5D345F71E46C0C100A8CBE9 /* PLVIndicator.m in Sources */,
+				E5D345F51E46C0C100A8CBE9 /* FMResultSet.m in Sources */,
+				E5D345F91E46C0C100A8CBE9 /* SubTitleLabel.m in Sources */,
+				E5D345F61E46C0C100A8CBE9 /* FMDBHelper.m in Sources */,
 				E50548DC1E0B677600719FFD /* Foundation+Log.m in Sources */,
+				E5D346161E46C1D100A8CBE9 /* UINavigationController+Orientation.m in Sources */,
+				E5D345F31E46C0C100A8CBE9 /* FMDatabasePool.m in Sources */,
+				E5D345F21E46C0C100A8CBE9 /* FMDatabaseAdditions.m in Sources */,
+				E5D346001E46C0C100A8CBE9 /* UploadDemoViewController.m in Sources */,
+				E5D345FF1E46C0C100A8CBE9 /* PolyvPlayerDemoViewController.m in Sources */,
 				CBA37128196E6549008E95ED /* main.m in Sources */,
+				E5D345F41E46C0C100A8CBE9 /* FMDatabaseQueue.m in Sources */,
+				E5D346021E46C0C100A8CBE9 /* DetailViewController2.m in Sources */,
+				E5D346031E46C0C100A8CBE9 /* VideoListTableViewController.m in Sources */,
+				E5D345F81E46C0C100A8CBE9 /* PLVSlider.m in Sources */,
+				E5D346011E46C0C100A8CBE9 /* DetailViewController.m in Sources */,
+				E5D3460D1E46C17E00A8CBE9 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,20 +706,20 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		CBA3712D196E6549008E95ED /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CBA3712E196E6549008E95ED /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CBA37143196E6549008E95ED /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				CBA37144196E6549008E95ED /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E5D346071E46C17E00A8CBE9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E5D346081E46C17E00A8CBE9 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -738,6 +812,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/polyvSDK",
 					"$(PROJECT_DIR)/polyvSDK/libpolyvSDK",
+					"$(PROJECT_DIR)/polyvSDK/Classes/libpolyvSDK",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
@@ -766,6 +841,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/polyvSDK",
 					"$(PROJECT_DIR)/polyvSDK/libpolyvSDK",
+					"$(PROJECT_DIR)/polyvSDK/Classes/libpolyvSDK",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";

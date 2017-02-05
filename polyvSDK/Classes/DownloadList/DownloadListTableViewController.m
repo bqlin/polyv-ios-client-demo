@@ -272,9 +272,16 @@
 	NSLog(@"%@ 任务开始", vid);
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
+#pragma mark - 页面旋转
+- (BOOL)shouldAutorotate {
+	return NO;
 }
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+	return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+	return UIInterfaceOrientationPortrait;
+}
 @end
