@@ -25,6 +25,7 @@
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="103" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q5F-Lq-0Ya">
                                             <rect key="frame" x="8" y="8" width="112" height="84"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="q5F-Lq-0Ya" secondAttribute="height" multiplier="4:3" id="hkb-Kh-mN8"/>
                                             </constraints>
@@ -93,7 +94,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="meq-91-IQw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-465" y="-482"/>
+            <point key="canvasLocation" x="-285" y="-482"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="ATj-P4-RNL">
@@ -141,12 +142,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="KKm-Bp-5yn" kind="relationship" relationship="rootViewController" id="Bjc-mV-L0m"/>
+                        <segue destination="KKm-Bp-5yn" kind="relationship" relationship="rootViewController" id="7TT-4x-uah"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qCT-zi-giL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-512" y="-482"/>
+            <point key="canvasLocation" x="-693" y="-482"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ctK-LQ-XsA">
@@ -171,7 +172,7 @@
         <!--上传-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Tsc-Ji-qQC"/>
                         <viewControllerLayoutGuide type="bottom" id="KTA-jD-3wZ"/>
