@@ -349,11 +349,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 	[super play];
 }
 
-- (void)stop{
-	[self.videoControl.indicatorView stopAnimating];
-	[super stop];
-}
-
 #pragma mark - 内部方法
 #pragma mark 播放器通知响应
 
@@ -633,7 +628,6 @@ typedef NS_ENUM(NSInteger, panHandler){
 	[self.videoControl autoFadeOutControlBar];
 	[self setCurrentPlaybackTime:floor(slider.value)];
 	[self play];
-	[self.videoControl.indicatorView stopAnimating];
 	_isSeeking = NO;
 }
 

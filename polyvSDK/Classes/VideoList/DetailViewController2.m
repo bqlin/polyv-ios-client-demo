@@ -68,7 +68,7 @@
 	// self.videoPlayer.teaserEnable = YES;
 	
 	// 自动续播, 是否继续上次观看的位置
-	self.videoPlayer.autoContinue = YES;
+//	self.videoPlayer.autoContinue = YES;
 	
 	// 开启弹幕
     [self.videoPlayer enableDanmu:YES];
