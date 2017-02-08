@@ -63,7 +63,6 @@
 
 //更新视频下载的速率
 - (void)updateVideo:(NSString *)vid rate:(long)rate {
-    
     for (int i = 0; i < _videolist.count; ++i) {
         Video *video = [_videolist objectAtIndex:i];
         if ([video.vid isEqualToString:vid]) {
@@ -117,7 +116,6 @@
     //_videolist = [_fmdb listDownloadVideo];
     
     [super viewDidLoad];
-
 }
 
 #pragma mark - Table view data source
@@ -128,44 +126,20 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"downloadItemCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     Video *video = [_videolist objectAtIndex:indexPath.row];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        //title
-        UILabel *label_title =[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 120, 20)] ;
-        label_title.font = [UIFont systemFontOfSize:12];
-        label_title.tag = 101;
-        label_title.text = video.title;
-        [cell.contentView addSubview:label_title];
-        //filesize
-        UILabel *label_filesize =[[UILabel alloc] initWithFrame:CGRectMake(120, 10, 100, 20)] ;
-        label_filesize.tag = 102;
-        label_filesize.font = [UIFont systemFontOfSize:12];
-        label_filesize.text = [NSString stringWithFormat:@"大小:%@", [NSByteCountFormatter stringFromByteCount:video.filesize countStyle:NSByteCountFormatterCountStyleFile]];
-        [cell.contentView addSubview:label_filesize];
-        //percent
-        UILabel *label_percent =[[UILabel alloc] initWithFrame:CGRectMake(220, 10, 120, 20)] ;
-        label_percent.tag = 103;
-        label_percent.font = [UIFont systemFontOfSize:12];
-        label_percent.text = [NSString stringWithFormat:@"%.1f%%, %ldkb/s", video.percent, video.rate];
-        
-        [cell.contentView addSubview:label_percent];
-        
-    }else{
-        UILabel *label_title = (UILabel *)[cell viewWithTag:101];
-        label_title.text = video.title;
-        
-        UILabel *label_percent =(UILabel *)[cell viewWithTag:103];
-        label_percent.text = [NSString stringWithFormat:@"%.1f%%, %ldkb/s", video.percent, video.rate];
-        
-        UILabel *label_filesize =(UILabel *)[cell viewWithTag:102];
-
-        label_filesize.text = [NSString stringWithFormat:@"大小:%@", [NSByteCountFormatter stringFromByteCount:video.filesize countStyle:NSByteCountFormatterCountStyleFile]];
-    }
-    // Configure the cell...
+	
+	UILabel *label_title = (UILabel *)[cell viewWithTag:101];
+	label_title.text = video.title;
+	
+	UILabel *label_percent =(UILabel *)[cell viewWithTag:103];
+	label_percent.text = [NSString stringWithFormat:@"%.1f%%, %ldkb/s", video.percent, video.rate];
+	
+	UILabel *label_filesize =(UILabel *)[cell viewWithTag:102];
+	
+	label_filesize.text = [NSString stringWithFormat:@"大小:%@", [NSByteCountFormatter stringFromByteCount:video.filesize countStyle:NSByteCountFormatterCountStyleFile]];
+	
     return cell;
 }
 
@@ -272,16 +246,16 @@
 	NSLog(@"%@ 任务开始", vid);
 }
 
-#pragma mark - 页面旋转
-- (BOOL)shouldAutorotate {
-	return NO;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-	return UIInterfaceOrientationMaskPortrait;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-	return UIInterfaceOrientationPortrait;
-}
+//#pragma mark - 页面旋转
+//- (BOOL)shouldAutorotate {
+//	return NO;
+//}
+//
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+//	return UIInterfaceOrientationMaskPortrait;
+//}
+//
+//- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+//	return UIInterfaceOrientationPortrait;
+//}
 @end
