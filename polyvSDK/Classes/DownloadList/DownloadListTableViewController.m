@@ -160,8 +160,9 @@
      }
      [self.videoPlayer setHeadTitle:video.title];
      [self.videoPlayer showInWindow];
-      [self.videoPlayer setVid:video.vid level:0];
-     //[self.videoPlayer setCurrentPlaybackRate:1.5f];
+     self.videoPlayer.vid = video.vid;
+	
+	NSLog([PvUrlSessionDownload isVideoExists:video.vid level:2] ? @"存在高清！" : @"不存在高清！");
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
