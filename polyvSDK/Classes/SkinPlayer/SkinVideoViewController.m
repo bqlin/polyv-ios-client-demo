@@ -461,7 +461,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 		}else{
 			errorstring = @"playback failed without any given reason";
 		}
-		[PvReportManager reportError:[super getPid] uid:PolyvUserId vid:self.vid error:errorstring param1:self.param1 param2:@"" param3:@"" param4:@"" param5:@"polyv-ios-sdk"];
+		[PvReportManager reportError:self.pid uid:PolyvUserId vid:self.vid error:errorstring param1:self.param1 param2:@"" param3:@"" param4:@"" param5:@"polyv-ios-sdk"];
 	}
 	//NSLog(@"done");
 }

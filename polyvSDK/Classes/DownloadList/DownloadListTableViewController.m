@@ -37,13 +37,12 @@
             PvUrlSessionDownload *downloader = [_downloaderDictionary objectForKey:aKey];
             [downloader stop];
         }
-        [btnstart setTitle:@"全部开始"];
     }else{
         for (NSString *aKey in [_downloaderDictionary allKeys]) {
             PvUrlSessionDownload *downloader = [_downloaderDictionary objectForKey:aKey];
             [downloader start];
         }
-        [btnstart setTitle:@"全部停止"];
+		[btnstart setTitle:@"全部停止"];
     }
     started = !started;
 }
@@ -214,6 +213,10 @@
 //下载被停止
 - (void)dataDownloadStop:(PvUrlSessionDownload *)downloader withVid:(NSString *)vid{
 	NSLog(@"stop - %@", vid);
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[btnstart setTitle:@"全部开始"];
+		started = !started;
+	});
 }
 
 //下载失败
@@ -247,16 +250,16 @@
 	NSLog(@"%@ 任务开始", vid);
 }
 
-//#pragma mark - 页面旋转
-//- (BOOL)shouldAutorotate {
-//	return NO;
-//}
-//
-//- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-//	return UIInterfaceOrientationMaskPortrait;
-//}
-//
-//- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-//	return UIInterfaceOrientationPortrait;
-//}
+#pragma mark - 页面旋转
+- (BOOL)shouldAutorotate {
+	return NO;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+	return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+	return UIInterfaceOrientationPortrait;
+}
 @end

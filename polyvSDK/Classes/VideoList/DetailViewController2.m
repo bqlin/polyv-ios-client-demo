@@ -101,8 +101,49 @@
     [self.videoPlayer setWatchCompletedBlock:^{
         NSLog(@"user watching completed");
     }];
+	
+	// 开始接受远程控制
+	[[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+	[self becomeFirstResponder];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
+
+// 重写父类成为响应者方法
+- (BOOL)canBecomeFirstResponder{
+	return YES;
+}
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event{
+	if (event.type == UIEventTypeRemoteControl) {
+		switch (event.subtype) { // 得到事件类型
+			case UIEventSubtypeRemoteControlTogglePlayPause: // 暂停 ios6
+				break;
+			case UIEventSubtypeRemoteControlPreviousTrack:  // 上一首
+				NSLog(@"UIEventSubtypeRemoteControlPreviousTrack");
+				break;
+			case UIEventSubtypeRemoteControlNextTrack: // 下一首
+				NSLog(@"UIEventSubtypeRemoteControlNextTrack");
+				break;
+			case UIEventSubtypeRemoteControlPlay: //播放
+				[self.videoPlayer play];
+				break;
+			case UIEventSubtypeRemoteControlPause: // 暂停 ios7
+				[self.videoPlayer pause];
+				break;
+			default:
+				break;
+		}
+	}
+}
+
+- (void)applicationDidEnterBackground:(NSNotification*)note {
+//	double delayInSeconds = 0.1;
+//	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+//	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//		[self.videoPlayer play];
+//	});
+}
 
 ///**
 // *  ----- 以下按钮部分为测试视频跳转实例，如无需要可自行删除 ----

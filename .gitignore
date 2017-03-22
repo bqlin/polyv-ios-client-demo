@@ -138,3 +138,7 @@ Podfile.lock
 #
 # ...none. Everything is now explained.
 *.a
+
+*Tests
+*.xcodeproj
+.gitignore

@@ -21,12 +21,19 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // 配置sdk加密串
-    // NSString *appKey = @"你的app sdk加密串";
-	NSString *appKey = @"iPGXfu3KLEOeCW4KXzkWGl1UYgrJP7hRxUfsJGldI6DEWJpYfhaXvMA+32YIYqAOocWd051v5XUAU17LoVlgZCSEVNkx11g7CxYadcFPYPozslnQhFjkxzzjOt7lUPsWF/CO2xt5xZemQCBkkSKLGA==";
-	NSArray *config = [PolyvUtil decryptUserConfig:[appKey dataUsingEncoding:NSUTF8StringEncoding]];
+//	 NSString *appKey = @"你的app sdk加密串";
+    NSString *appKey = @"Ear7G0Af6NRHUkIHad1R0rtYCWgT3u4LpdBQUaSJEPl0rdhaLIRJ9tN80ljAaw10dO+qOqVdNHLusJtQzvezR9P9ehq3pbFFVcjSfPveiVgDJgtUmh7+gD931faqV7lgUGIbdZFzv/V4cPT2xAWjyQ==";         // 本地
+    NSData *data = [appKey dataUsingEncoding:NSUTF8StringEncoding];
+    NSArray *config = [PolyvUtil decryptUserConfig:data key:@"VXtlHmwfS2oYm0CZ" iv:@"1111111111111111"];
 	
+//	NSString *appKey = @"iPGXfu3KLEOeCW4KXzkWGl1UYgrJP7hRxUfsJGldI6DEWJpYfhaXvMA+32YIYqAOocWd051v5XUAU17LoVlgZCSEVNkx11g7CxYadcFPYPozslnQhFjkxzzjOt7lUPsWF/CO2xt5xZemQCBkkSKLGA==";
+//	NSArray *config = [PolyvUtil decryptUserConfig:[appKey dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	// 配置下载目录
     [[PolyvSettings sharedInstance] setDownloadDir:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/plvideo/a"]];
-    [[PolyvSettings sharedInstance] initVideoSettings:[config objectAtIndex:1] Readtoken:[config objectAtIndex:2] Writetoken:[config objectAtIndex:3] UserId:[config objectAtIndex:0]];
+	// 是否开启 HttpDNS
+	[[PolyvSettings sharedInstance] setHttpDNSEnable:YES];
+    [[PolyvSettings sharedInstance] initVideoSettings:config[1] Readtoken:config[2] Writetoken:config[3] UserId:config[0]];
 //	[[PolyvSettings sharedInstance] setLogLevel:PLVLogLevelDebug];
 	[PolyvSettings.sharedInstance setLogLevel:PLVLogLevelAll];
 	
