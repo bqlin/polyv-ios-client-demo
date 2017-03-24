@@ -140,5 +140,5 @@ Podfile.lock
 *.a
 
 *Tests
-*.xcodeproj
+polyvSDK_bq.xcodeproj
 .gitignore
