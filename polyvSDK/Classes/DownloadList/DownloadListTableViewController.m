@@ -85,6 +85,7 @@
 		//只加入新增下载任务
 		if ([_downloaderDictionary objectForKey:video.vid]==nil) {
 			PvUrlSessionDownload *downloader = [[PvUrlSessionDownload alloc] initWithVid:video.vid level:video.level];
+			// downloader.backgroundMode = NO;
 			//设置下载代理为自身，需要实现四个代理方法download delegate
 			[downloader setDownloadDelegate:self];
 			// 后台下载时完成回调
@@ -226,6 +227,8 @@
 		[self updateVideo:vid percent:[aPercent floatValue]];
 		//NSLog(@"dataDownloadAtPercent%@", aPercent);
 	});
+	NSLog(@"%@_%@", vid, aPercent);
+	
 }
 
 //实时获取下载速率(下载开始之后此方法会一直被调用直到当前下载任务结束)
