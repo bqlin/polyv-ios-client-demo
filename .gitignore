@@ -142,3 +142,4 @@ Podfile.lock
 *Tests
 polyvSDK_bq.xcodeproj
 .gitignore
+PolyvSettings+Bq.m
