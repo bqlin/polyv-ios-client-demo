@@ -24,7 +24,7 @@
 	[PolyvSettings.sharedInstance setHttpDNSEnable:YES];
 	
 	// 配置sdk加密串
-	[[PolyvSettings sharedInstance] setBqAccountEnable:YES];
+	[[PolyvSettings sharedInstance] setBqAccountEnable:NO];
 	
 	return YES;
 }
