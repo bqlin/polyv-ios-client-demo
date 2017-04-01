@@ -230,8 +230,7 @@
 		[self updateVideo:vid percent:[aPercent floatValue]];
 		//NSLog(@"dataDownloadAtPercent%@", aPercent);
 	});
-	NSLog(@"%@_%@", vid, aPercent);
-	
+	//NSLog(@"%@_%@", vid, aPercent);
 }
 
 //实时获取下载速率(下载开始之后此方法会一直被调用直到当前下载任务结束)
