@@ -52,7 +52,9 @@
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
 	if ([[PolyvSettings sharedInstance] bqAccountEnable]) {
-		[request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://v.polyv.net/uc/services/rest?method=getNewList&readtoken=%@&pageNum=1&numPerPage=20", PolyvReadtoken]]];
+		NSString *listUrl = [NSString stringWithFormat:@"https://v.polyv.net/uc/services/rest?method=getNewList&readtoken=%@&pageNum=1&numPerPage=20", PolyvReadtoken];
+		request.URL = [NSURL URLWithString:listUrl];
+		NSLog(@"listURL = %@", listUrl);
 	}else{
 		[request setURL:[NSURL URLWithString:@"https://demo.polyv.net/data/video.js"]];
 	}
