@@ -11,6 +11,7 @@
 #import "PolyvSettings.h"
 #import "PolyvUtil.h"
 #import "PolyvSettings+Bq.h"
+@import AVFoundation;
 
 @implementation AppDelegate
 
@@ -28,6 +29,12 @@
 	
 	// 配置sdk加密串
 	[[PolyvSettings sharedInstance] setBqAccountEnable:YES];
+    
+//    NSError *error = nil;
+//    BOOL success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
+//    if (!success) {
+//        // Handle error here, as appropriate
+//    }
 	
 	return YES;
 }
