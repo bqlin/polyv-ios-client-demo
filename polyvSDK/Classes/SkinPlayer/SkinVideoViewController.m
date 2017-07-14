@@ -159,6 +159,8 @@ typedef NS_ENUM(NSInteger, panHandler){
 		frame = CGRectMake(frame.origin.x, frame.origin.y + 20, frame.size.width, frame.size.height);
 		self.frame = frame;
 		self.originFrame = frame;
+        [self.view addSubview:self.videoControl.indicator];
+        [self.view addSubview:self.videoControl.indicatorView];
 		[self.view addSubview:self.videoControl];
 		self.videoControl.frame = self.view.bounds;
 		
@@ -833,7 +835,7 @@ typedef NS_ENUM(NSInteger, panHandler){
 			[aScanner scanDouble:&c];
 			double endTime = (h * 3600.0) + (m * 60.0) + s + (c / 1000.0);
 			
-			NSString *textString;
+			NSString *textString = @"";
 			// BEGIN EDIT
 			(void) [scanner scanUpToString:@"\n\n" intoString:&textString];
 			
