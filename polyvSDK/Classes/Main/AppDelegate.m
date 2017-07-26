@@ -19,7 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // 监听SDK错误通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(errorDidOccur:) name:PLVErrorNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(errorDidOccur:) name:PLVErrorNotification object:nil];
     
     // 采用 AlicloudReachabilityManager 监听网络情况
     [AlicloudReachabilityManager shareInstance];
@@ -28,18 +28,18 @@
 	// 配置下载目录
 	[PolyvSettings.sharedInstance setDownloadDir:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/plvideo/a"]];
 	// 配置日志等级
-	[PolyvSettings.sharedInstance setLogLevel:PLVLogLevelWarn | PLVLogLevelInfo];
+	[PolyvSettings.sharedInstance setLogLevel:PLVLogLevelAll];
 	// 开启 HttpDNS 功能
-	//[PolyvSettings.sharedInstance setHttpDNSEnable:YES];
+	[PolyvSettings.sharedInstance setHttpDNSEnable:YES];
 	
 	// 配置sdk加密串
 	[[PolyvSettings sharedInstance] setBqAccountEnable:YES];
     
-//    NSError *error = nil;
-//    BOOL success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
-//    if (!success) {
-//        // Handle error here, as appropriate
-//    }
+    NSError *error = nil;
+    BOOL success = [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
+    if (!success) {
+        // Handle error here, as appropriate
+    }
 	
 	return YES;
 }
