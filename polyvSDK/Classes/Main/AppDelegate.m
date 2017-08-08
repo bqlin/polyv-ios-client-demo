@@ -78,6 +78,8 @@
 {
 	NSDictionary *userInfo = @{PLVSessionIdKey: identifier,
 							   PLVBackgroundSessionCompletionHandlerKey: completionHandler};
+    
+    NSLog(@"background id: %@", identifier);
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:PLVBackgroundSessionUpdateNotification
 														object:self
