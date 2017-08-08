@@ -40,27 +40,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.startButton = [[UIBarButtonItem alloc] initWithTitle:@"全部开始" style:UIBarButtonItemStylePlain target:self action:@selector(startAll)];
-    self.navigationItem.rightBarButtonItem = self.startButton;
-    
-    //_fmdb = [FMDBHelper sharedInstance];
-    //_videolist = [_fmdb listDownloadVideo];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleBackgroundSession:)
-                                                 name:PLVBackgroundSessionUpdateNotification
-                                               object:nil];
+	self.startButton = [[UIBarButtonItem alloc] initWithTitle:@"全部开始" style:UIBarButtonItemStylePlain target:self action:@selector(startAll)];
+	self.navigationItem.rightBarButtonItem = self.startButton;
+	
+	//_fmdb = [FMDBHelper sharedInstance];
+	//_videolist = [_fmdb listDownloadVideo];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(handleBackgroundSession:)
+												 name:PLVBackgroundSessionUpdateNotification
+											   object:nil];	
 }
 
 
 
 - (void)handleBackgroundSession:(NSNotification *)notification {
-    // AppDelegate 执行 -application:handleEventsForBackgroundURLSession:completionHandler: 才把 block 属性赋值
-    for (PvUrlSessionDownload *downloader in self.downloaderDictionary.allValues) {
-        if ([notification.userInfo[PLVSessionIdKey] isEqualToString:downloader.sessionId]) {
-            downloader.completeBlock = notification.userInfo[PLVBackgroundSessionCompletionHandlerKey];
-        }
-    }
+	// AppDelegate 执行 -application:handleEventsForBackgroundURLSession:completionHandler: 才把 block 属性赋值
+	for (PvUrlSessionDownload *downloader in self.downloaderDictionary.allValues) {
+		if ([notification.userInfo[PLVSessionIdKey] isEqualToString:downloader.sessionId]) {
+			downloader.completeBlock = notification.userInfo[PLVBackgroundSessionCompletionHandlerKey];
+		}
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -132,102 +132,102 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.videoList count];
+	return [self.videoList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"downloadItemCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    Video *video = [self.videoList objectAtIndex:indexPath.row];
-    
-    UILabel *label_title = (UILabel *)[cell viewWithTag:101];
-    label_title.text = video.title;
-    
-    UILabel *label_percent =(UILabel *)[cell viewWithTag:103];
-    label_percent.text = [NSString stringWithFormat:@"%.1f%%, %ldkb/s", video.percent, video.rate];
-    
-    UILabel *label_filesize =(UILabel *)[cell viewWithTag:102];
-    
-    label_filesize.text = [NSString stringWithFormat:@"大小:%@", [NSByteCountFormatter stringFromByteCount:video.filesize countStyle:NSByteCountFormatterCountStyleFile]];
-    
-    return cell;
+	static NSString *CellIdentifier = @"downloadItemCell";
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	Video *video = [self.videoList objectAtIndex:indexPath.row];
+	
+	UILabel *label_title = (UILabel *)[cell viewWithTag:101];
+	label_title.text = video.title;
+	
+	UILabel *label_percent =(UILabel *)[cell viewWithTag:103];
+	label_percent.text = [NSString stringWithFormat:@"%.1f%%, %ldkb/s", video.percent, video.rate];
+	
+	UILabel *label_filesize =(UILabel *)[cell viewWithTag:102];
+	
+	label_filesize.text = [NSString stringWithFormat:@"大小:%@", [NSByteCountFormatter stringFromByteCount:video.filesize countStyle:NSByteCountFormatterCountStyleFile]];
+	
+	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Video *video = [self.videoList objectAtIndex:indexPath.row];
-    if (!self.videoPlayer) {
-        CGFloat width = [UIScreen mainScreen].bounds.size.width;
-        self.videoPlayer = [[SkinVideoViewController alloc] initWithFrame:CGRectMake(0, 0, width, width*(9.0/16.0))];
-        [self.videoPlayer configObserver];
-        __weak typeof(self)weakSelf = self;
-        [self.videoPlayer setDimissCompleteBlock:^{
-            [weakSelf.videoPlayer stop];
-            [weakSelf.videoPlayer cancel];
-            [weakSelf.videoPlayer cancelObserver];
-            weakSelf.videoPlayer = nil;
-        }];
-    }
-    [self.videoPlayer setHeadTitle:video.title];
-    [self.videoPlayer showInWindow];
-    [self.videoPlayer setVid:video.vid level:0];
-    
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+	Video *video = [self.videoList objectAtIndex:indexPath.row];
+	if (!self.videoPlayer) {
+		CGFloat width = [UIScreen mainScreen].bounds.size.width;
+		self.videoPlayer = [[SkinVideoViewController alloc] initWithFrame:CGRectMake(0, 0, width, width*(9.0/16.0))];
+		[self.videoPlayer configObserver];
+		__weak typeof(self)weakSelf = self;
+		[self.videoPlayer setDimissCompleteBlock:^{
+			[weakSelf.videoPlayer stop];
+			[weakSelf.videoPlayer cancel];
+			[weakSelf.videoPlayer cancelObserver];
+			weakSelf.videoPlayer = nil;
+		}];
+	}
+	[self.videoPlayer setHeadTitle:video.title];
+	[self.videoPlayer showInWindow];
+	[self.videoPlayer setVid:video.vid level:0];
+	
+	[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 //删除视频
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    Video *video = [self.videoList objectAtIndex:indexPath.row];
-    
-    PvUrlSessionDownload *downloader = self.downloaderDictionary[video.vid];
-    if(downloader!=nil) {
-        [downloader stop];
-        //删除任务需要执行清理下载URLSession，不然会再次加入任务的时候会报告session已经存在错误
-        [downloader cleanSession];
-        
-        [self.downloaderDictionary removeObjectForKey:video.vid];
-    }
-    
-    //删除文件
-    [PvUrlSessionDownload deleteVideo:video.vid level:video.level];
-    
-    [[FMDBHelper sharedInstance] removeDownloadVideo:video];
-    [self.videoList removeObject:video];
-    [self.tableView reloadData];
+	Video *video = [self.videoList objectAtIndex:indexPath.row];
+	
+	PvUrlSessionDownload *downloader = self.downloaderDictionary[video.vid];
+	if(downloader!=nil) {
+		[downloader stop];
+		//删除任务需要执行清理下载URLSession，不然会再次加入任务的时候会报告session已经存在错误
+		[downloader cleanSession];
+		
+		[self.downloaderDictionary removeObjectForKey:video.vid];
+	}
+	
+	//删除文件
+	[PvUrlSessionDownload deleteVideo:video.vid level:video.level];
+	
+	[[FMDBHelper sharedInstance] removeDownloadVideo:video];
+	[self.videoList removeObject:video];
+	[self.tableView reloadData];
 }
 
 //设置表格的编辑风格
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleDelete;
+	return UITableViewCellEditingStyleDelete;
 }
 
 //表格是否能被编辑
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+	return YES;
 }
 
 #pragma mark  download delegate
 
 //下载失败
 - (void)dataDownloadFailed:(PvUrlSessionDownload *)downloader withVid:(NSString *)vid reason:(NSString *)reason {
-    [[FMDBHelper sharedInstance] updateDownloadStatic:vid status:-1];
-    NSLog(@"dataDownloadFailed %@ - %@", vid, reason);
+	[[FMDBHelper sharedInstance] updateDownloadStatic:vid status:-1];
+	NSLog(@"dataDownloadFailed %@ - %@", vid, reason);
 }
 
 //实时获取下载进度百分比
 - (void)dataDownloadAtPercent:(PvUrlSessionDownload *)downloader withVid:(NSString *)vid percent: (NSNumber *)aPercent {
-    [[FMDBHelper sharedInstance] updateDownloadPercent:vid percent:aPercent];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateVideo:vid percent:[aPercent floatValue]];
-        //NSLog(@"dataDownloadAtPercent%@", aPercent);
-    });
+	[[FMDBHelper sharedInstance] updateDownloadPercent:vid percent:aPercent];
+	
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[self updateVideo:vid percent:[aPercent floatValue]];
+		//NSLog(@"dataDownloadAtPercent%@", aPercent);
+	});
 }
 
 //实时获取下载速率(下载开始之后此方法会一直被调用直到当前下载任务结束)
 - (void)dataDownloadAtRate:(PvUrlSessionDownload *)downloader withVid:(NSString *)vid rate:(NSNumber *)aRate {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateVideo:vid rate:[aRate longLongValue]];
-    });
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[self updateVideo:vid rate:[aRate longLongValue]];
+	});
 }
 
 - (void)downloader:(PvUrlSessionDownload *)downloader withVid:(NSString *)vid didChangeDownloadState:(PLVDownloadState)state {
@@ -242,21 +242,13 @@
             NSLog(@"%@ 任务开始", vid);
         }break;
         case PLVDownloadStateStopping:{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                self.startButton.enabled = NO;
-//                self.startButton.title = @"正在停止";
-//            });
+            NSLog(@"%@ 正在停止", vid);
         }break;
         case PLVDownloadStateStopped:{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                self.startButton.enabled = YES;
-//                self.startButton.title = @"全部开始";
-//                _started = NO;
-//            });
-            NSLog(@"stop - %@", vid);
+            NSLog(@"%@ 任务停止", vid);
         }break;
         case PLVDownloadStateSuccess:{
-            NSLog(@"finished %@", vid);
+            NSLog(@"%@ 任务完成", vid);
             
             [[FMDBHelper sharedInstance] updateDownloadPercent:vid percent:[NSNumber numberWithInt:100]];
             [[FMDBHelper sharedInstance] updateDownloadStatic:vid status:1];
@@ -274,7 +266,7 @@
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
+	return UIInterfaceOrientationMaskPortrait;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
