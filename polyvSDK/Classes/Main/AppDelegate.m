@@ -13,11 +13,13 @@
 #import "PolyvSettings+Bq.h"
 @import AVFoundation;
 #import <AlicloudUtils/AlicloudReachabilityManager.h>
+#import "SkinVideoViewController.h"
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    
     // 当前 SDK 版本
     NSLog(@"当前 SDK 版本：%@", [PolyvSettings sdkVersion]);
     
@@ -45,6 +47,10 @@
     }
 	
 	return YES;
+}
+
+- (void)playerFinish:(NSNotification *)notification {
+    
 }
 
 /// 错误通知响应

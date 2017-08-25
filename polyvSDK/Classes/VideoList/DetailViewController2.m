@@ -33,11 +33,10 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
 	// 主动调用 cancel 方法销毁播放器
-	[self.videoPlayer cancel];    // cancel方法中调用了cancelObserver
+	[self.videoPlayer cancel];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
- 
-	[super viewDidDisappear:animated];
 }
 
 - (void)viewDidLoad {
@@ -68,7 +67,7 @@
 	// self.videoPlayer.teaserEnable = YES;
 	
 	// 自动续播, 是否继续上次观看的位置
-	//	self.videoPlayer.autoContinue = YES;
+    self.videoPlayer.autoContinue = YES;
 	
 	// 开启弹幕
 	[self.videoPlayer enableDanmu:YES];
