@@ -11,14 +11,12 @@
 #import "PolyvSettings.h"
 #import "PolyvUtil.h"
 #import "PolyvSettings+Bq.h"
-@import AVFoundation;
 #import <AlicloudUtils/AlicloudReachabilityManager.h>
-#import "SkinVideoViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
     
     // 当前 SDK 版本
     NSLog(@"当前 SDK 版本：%@", [PolyvSettings sdkVersion]);
@@ -46,11 +44,23 @@
         // Handle error here, as appropriate
     }
 	
+	// 配置音频会话，忽略系统静音开关
+	[self setupAudioSession];
+	
 	return YES;
 }
 
-- (void)playerFinish:(NSNotification *)notification {
-    
+/// 配置音量会话
+- (void)setupAudioSession {
+	NSError *categoryError = nil;
+	if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&categoryError]){
+		NSLog(@"音量会话类别设置错误：%@", categoryError);
+	}
+	
+	NSError *activeError = nil;
+	if (![[AVAudioSession sharedInstance] setActive:YES error:&activeError])	{
+		NSLog(@"音量会话激活设置错误：%@", activeError);
+	}
 }
 
 /// 错误通知响应
