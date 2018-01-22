@@ -64,14 +64,15 @@
 
 - (void)reloadVideoList{
     [self.refreshControl beginRefreshing];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+	
+	NSString *url = nil;
     if ([[PolyvSettings sharedInstance] bqAccountEnable]) {
-        NSString *listUrl = [NSString stringWithFormat:@"https://v.polyv.net/uc/services/rest?method=getNewList&readtoken=%@&pageNum=1&numPerPage=20", PolyvReadtoken];
-        request.URL = [NSURL URLWithString:listUrl];
-        NSLog(@"listURL = %@", listUrl);
+        url = [NSString stringWithFormat:@"https://v.polyv.net/uc/services/rest?method=getNewList&readtoken=%@&pageNum=1&numPerPage=100", PolyvReadtoken];
     }else{
-        [request setURL:[NSURL URLWithString:@"https://demo.polyv.net/data/video.js"]];
+        url = @"https://demo.polyv.net/data/video.js";
     }
+	NSLog(@"url: %@", url);
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     [request setHTTPMethod:@"GET"];
     
     __weak typeof(self) weakSelf = self;
@@ -159,6 +160,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
     
     _video = [_videolist objectAtIndex:indexPath.row];
+	//_video.vid = @"25c6581e82c954642df0d039879cd92e_2";
     switch (_video.allfilesize.count) {
         case 1:
             [[[UIAlertView alloc] initWithTitle:@"选择要下载的码率"
